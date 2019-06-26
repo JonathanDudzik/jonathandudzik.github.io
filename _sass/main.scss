@@ -1,29 +1,136 @@
+/******************************************************************** 
+START rules that will come before Bulma's variables 
+*********************************************************************/
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
-// Customization
+// Setting local color scheme
+$white: #fff;
+$black: #000;
+$light-black: hsl(0, 0%, 15%);
+$dark-blue: #092940;
+$light-blue: #397aac;
+$primary: $light-blue;
+$dark-grey: #5f6c7b;
+$light-grey: #ecf0f3;
 
-// You can easily customize Bulma with your own variables.
-// Just uncomment the following block to see the result.
+// Bulma typography variables
+$dark: $dark-blue;
 
-/*
-// 1. Import the initial variables
-@import "../node_modules/bulma/sass/utilities/initial-variables";
+// Bulma menu variables
+$menu-label-color: $light-black;
+$menu-item-color: $light-black;
+$menu-item-active-background-color: $dark-grey;
+$menu-item-hover-color: $white;
+$menu-item-hover-background-color: $light-blue;
 
-// 2. Set your own initial variables
-// Update the blue shade, used for links
-$blue: #06bcef;
-// Add pink and its invert
-$pink: #ff8080;
-$pink-invert: #fff;
-// Update the sans-serif font family
-$family-sans-serif: "Helvetica", "Arial", sans-serif;
+// Bulma navbar variables
+$navbar-height: 5rem;
+$navbar-item-img-max-height: 5rem;
+$navbar-background-color: $dark-blue;
+$navbar-item-hover-background-color: $dark-grey;
 
-// 3. Set the derived variables
-// Use the new pink as the primary color
-$primary: $pink;
-$primary-invert: $pink-invert;
+/******************************************************************** 
+END rules that will come before Bulma's variables 
+*********************************************************************/
 
-// 4. Import the rest of Bulma
-*/
+// Import only what you need from Bulma
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/base/_all.sass";
 
-@import "../node_modules/bulma/bulma";
+@import "../node_modules/bulma/sass/elements/box.sass";
+@import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/elements/container.sass";
+@import "../node_modules/bulma/sass/elements/content.sass";
+@import "../node_modules/bulma/sass/elements/form.sass";
+@import "../node_modules/bulma/sass/elements/icon.sass";
+@import "../node_modules/bulma/sass/elements/notification.sass";
+@import "../node_modules/bulma/sass/elements/table.sass";
+@import "../node_modules/bulma/sass/elements/title.sass";
+@import "../node_modules/bulma/sass/elements/other.sass";
+
+@import "../node_modules/bulma/sass/components/list.sass";
+@import "../node_modules/bulma/sass/components/menu.sass";
+@import "../node_modules/bulma/sass/components/modal.sass";
+@import "../node_modules/bulma/sass/components/navbar.sass";
+
+@import "../node_modules/bulma/sass/layout/hero.sass";
+@import "../node_modules/bulma/sass/layout/section.sass";
+@import "../node_modules/bulma/sass/grid/columns.sass";
+
+/******************************************************************** 
+START rules that will come AFTER Bulma's variables 
+*********************************************************************/
+
+// My utility classes
+.is-display-none {
+    display: none
+}
+
+.is-padding-top-medium {
+    padding-top: 4rem;
+}
+
+.is-padding-left-xsmall {
+    padding-left: 1rem;
+}
+
+.is-min-height-full {
+    min-height: 90vh;
+}
+
+.is-background-image {
+    background-image: url("../media/bg_poly-accent-blue.jpg");
+}
+
+// Screen reader function focuses on Sections but shouldn't show border
+.has-invisible-outline {
+    outline: none;
+}
+    
+// Notification styles
+.notification {
+    background-color: $light-blue;
+}
+
+// Side-menu styles
+.is-side-menu {
+    position: fixed;
+    left: 0;
+    top: 5rem;
+    height: 100%;
+    background-color: $light-grey;
+    border-radius: 3px;
+    z-index: 1;
+}
+
+// Responsive styles
+@include touch {
+    .is-menu-width-touch {
+        width: 30%;
+    }
+    .is-main-margin-touch {
+        margin-left: 30%
+    }
+
+    .is-padding-top-touch {
+        padding-top: 6rem;
+    }
+}
+
+@include desktop {
+    .is-main-margin-desktop {
+        margin-left: 18%;
+    }
+
+    .is-menu-width-desktop {
+        width: 18%;
+    }
+}
+
+// Canvas styles
+canvas {
+    background: #eee;
+    display: block;
+    margin: 0 auto;
+}
