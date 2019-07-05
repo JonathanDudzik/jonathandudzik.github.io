@@ -24,126 +24,42 @@
             </div>
             <div class="navbar-menu is-active">
                 <div class="navbar-end is-flex">
-                    <button id="welcome" data-selector='welcome' class="navbar-item is-flex is-size-4" aria-label="BACK">
-                        <span class="icon has-text-white">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
-                        <p class="has-text-white icon-padding">NEXT</p>
-                    </button>
-                    <button href="#" class="navbar-item is-flex is-size-4" aria-label="play audio">
-                        <span class="icon has-text-white">
-                            <i class="fas fa-play"></i>
-                        </span>
-                        <p class="has-text-white icon-padding">PLAY</p>
-                    </button>
-                    <button href="#" class="navbar-item is-flex is-size-4" aria-label="play audio">
+                    <button id="pause" href="#" class="navbar-item is-flex is-size-4" aria-label="play audio">
                         <span class="icon has-text-white">
                             <i class="fas fa-pause"></i>
                         </span>
                         <p class="has-text-white icon-padding">PAUSE</p>
                     </button>
-                    <button data-selector='questions' class="navbar-item is-flex is-size-4" aria-label="BACK">
-                        <p class="has-text-white icon-padding">FORWARD</p>
-                        <span class="icon has-text-white">
-                            <i class="fas fa-chevron-right"></i>
-                        </span>
-                    </button>
                 </div>
             </div>
         </nav>
-        <nav class="side-menu is-display-none is-hidden-touch is-shadow-touch" id="sideMenu" tabindex="0">
-            <p class="menu-label">Contents</p>
-            <ul class="menu-list" role="menu">
-                <li><a href="#" data-selector="welcome" class="is-active"  tabindex="-1" role="menuitem">Welcome</a></li>
-                <li><a href="#" data-selector="statement" tabindex="-1" role="menuitem">The NC CACFP Medical Statement</a></li>
-                <li><a href="#" data-selector="questions" tabindex="-1" role="menuitem">Questions and Answers</a></li>
-                <li><a href="#" data-selector="multi-choice-quiz" tabindex="-1" role="menuitem">Quiz and Certificate</a></li>
-            </ul>
-            <p class="menu-label is-padding-2-top">Module Resources</p>
-            <ul class="menu-list">
-                <li><a href="https://www.nutritionnc.com/snp/index.htm/" target="_blank" tabindex="-1">NC CACFP Website</a></li>
-            </ul>
-        </nav>
-        <div class="min-height-full is-margin-touch is-margin-desktop">
-            <section class="section has-invisible-outline" data-section='welcome' id="welcome" tabindex="-1">
-                <div class="notification is-background-image">
-                    <h1 id="testHeading"></h1>
-                    <h1 class="title is-size-4-mobile is-size-1 has-text-white">NC CACFP<br>Child Income Eligibility Training</h1>
-                    <h2 class="subtitle has-text-white">Nutrition Training and Policy Team</h2>
+        <div class="columns is-marginless min-height-full">
+                <div class="column is-inline-block is-2 side-menu">
+                    <nav class="" role="navigation" aria-label="section navigation">
+                        <p class="menu-label">Contents</p>
+                        <ul class="menu-list">
+                            <li><a href="#welcome" class="is-active" data-selector="welcome">Welcome</a></li>
+                            <li><a href="#regulations" data-selector="2">2</a></li>
+                            <li><a href="#requirements" data-selector="4">3</a></li>
+                            <li><a href="#enrollment-form"  data-selector="5">5</a></li>
+                        </ul>
+                        <p class="menu-label is-padding-2-top">Module Resources</p>
+                        <ul class="menu-list">
+                            <li><a href="https://www.fns.usda.gov/part-226%E2%80%94child-and-adult-care-food-program" target="_blank">7 CFR PART 226</a></li>
+                            <li><a href="https://www.nutritionnc.com/snp/pdf/cacfp/forms/fy2019/enrollment/AdultEnrollmentForm-7-2018.pdf" target="_blank">Enrollment Form</a></li>
+                            <li><a href="https://www.nutritionnc.com/snp/index.htm/" target="_blank">NC CACFP Website</a></li>
+                            <li><a href="./media/adult-enrollment-print.pdf" target="_blank">Download Training Transcript</a></li>
+                            <li><a href="./media/adult-enrollment-audio.mp3" target="_blank">Download Audio MP3</a></li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="columns">   
-                    <div class="column is-7">
-                        <div class="content is-large is-padding-2-top">
-                            <h3 class="has-text-dark">Welcome</h3>
-                            <p>This training will cover the changes to the newly revised North Carolina <a href="https://www.nutritionnc.com/snp/pdf/cacfp/forms/fy2019/mealDocCalc/MedicalStatement/MedicalStatmentRequiringMealModifications.doc" target="_blank">CACFP Medical Statement</a> for Meal Substitutions.</p>
-                            <div id="board"></div>
-                        </div>
-                    </div>
+                <div class="column is-10">
+                    <section class="section">
+                        <div id="board"></div>
+                        <button data-selector="welcome">Get Started</button>
+                    </section>
                 </div>
-            </section>
-
-            <section class="section is-display-none has-invisible-outline" data-section='statement' id="statement" tabindex="-1">
-                <div class="content is-large">
-                    <h4>A look at the revised medical statement</h4>
-                    <div class="notification has-text-centered">
-                        <aside>
-                            <video src="#" alt="screencast of filling out enrollment form" controls></video>
-                        </aside>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="section is-display-none has-invisible-outline" data-section='questions' id="questions" tabindex="-1">
-                <div class="columns is-vcentered">   
-                    <div class="column is-8">
-                        <div class="content is-large">
-                            <h3 class="has-text-dark">Questions and Answers</h3>
-                            <table class="table is-bordered is-striped">
-                                <tbody class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-                                    <tr>
-                                        <th>Question</th>
-                                        <td>What happens if the medical statement does not specify the medical condition, but only lists the foods to avoid? </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Answer</th>
-                                        <td>The medical statement can still be accepted, if it is signed by a licensed healthcare professional and includes a description (for example, Sam has a food allergy and can’t drink cow’s milk). It is appropriate to ask the participant if any other accommodations should be made to accommodate the medical condition.</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Question</th>
-                                        <td>How do we handle situations where “medical condition” is checked instead of “disability” on the current Medical Statement?  Can we treat those as disabilities now and claim those meals?</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Answer</th>
-                                        <td>Yes, any current medical statements requiring meal modifications that are signed by a licensed healthcare professional will be accepted, whether “medical condition” or “disability” is checked.  Meals can be claimed for those participants with signed medical statements.</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Question</th>
-                                        <td>Can you ask for clarification on which specific foods and beverages can be given, if the medical statement is not clear?</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Answer</th>
-                                        <td>Yes, it is reasonable to ask for more information about specific foods and beverages to be given to a participant, in order to accommodate the medical condition.</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Question</th>
-                                        <td>Can we accept a doctor’s note on letterhead or a prescription pad instead of the state agency’s form?</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Answer</th>
-                                        <td>Yes, a doctor’s note on letterhead or a prescription pad is acceptable documentation if the note includes the doctor’s signature and the medical reason for the meal substitution.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <figure>
-                            <img src="#" alt="image placeholder">
-                        </figure>
-                    </div>
-                </div>
-            </section>
-        </div>
+            </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
         <script type="text/javascript" src="lib/main.js"></script>

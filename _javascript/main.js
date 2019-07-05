@@ -17,14 +17,14 @@ class Container {
         return child;
     }
     
-    update (dt, t) {
-        this.children.forEach(child => {
-            if (child.update) { // All elements in our game can (optionally) have an update method.
-                child.update(dt, t);
+    update () {
+        this.children = this.children.filter(child => {
+            if (child.update) {
+                child.update(); //there was a "this" as a parameter...
             }
+            return child.dead ? false : true;
         });
     }
-    
 }
 
 /********************************************************
@@ -58,12 +58,9 @@ class CanvasRenderer {
                     if(fill) ctx.fillStyle = fill;
                     if(align) ctx.textAlign = align;
                     ctx.fillText(child.text, 0, 0);
-                }
-
-                if(child.texture) {
+                } else if(child.texture) {
                     ctx.drawImage(child.texture.img, 0, 0);
                 }
-
 
                 if(child.chilren) {
                     renderRec(child);
@@ -86,14 +83,13 @@ class Text {
         this.pos = { x: 0, y: 0 };
         this.text = text;
         this.style = style;
-        // this.update // updates can be set here too
     }
 }
 
 class Texture {
     constructor (url) {
         this.img = new Image();
-        this.img.src = url;
+        this.img.src = url; 
     }
 }
 
@@ -101,84 +97,164 @@ class Sprite {
     constructor(texture) {
         this.texture = texture;
         this.pos = { x: 0, y: 0 };
+        this.visible = true;
     }
+}
+
+{
+// class Sound {
+//     constructor(url) {
+//         this.track = new Audio();
+//         this.track.src = url;
+//         this.update = function() {
+//             this.track.pause();
+//             this.track.currentTime = 0;
+//         }
+//     }
+// }
 }
 
 /***************************************
 * Set-up code
 **************************************/
-const w = 640;
-const h = 480;
+const w = 960;
+const h = 720;
 const renderCanvas = new CanvasRenderer(w, h);
 document.querySelector("#board").appendChild(renderCanvas.view);
 
+/***************************************
+* Portal Objects
+**************************************/
 const scene = new Container();
+const textures = {
+    background: new Texture("./media/background.jpg"),
+    texture1: new Texture("./media/Slide1.JPG"),
+    texture2: new Texture("./media/Slide2.JPG"),
+    texture3: new Texture("./media/Slide3.JPG"),
+    texture4: new Texture("./media/Slide4.JPG"),
+}
 
-const texture = new Texture("./media/getting-started-ic-v1.jpg");
+// render background
+scene.add(new Sprite(textures.background));
 
-const sprite = new Sprite(texture);
-sprite.pos.x = w / 2;
-sprite.pos.y = h / 2;
+// render images
+const slide1 = new Sprite(textures.texture1);
+slide1.update = function() {
+    console.log('updated slide1!');
+    slide1.visible = false;
+    slide1.dead = true;
+}
+const slide2 = new Sprite(textures.texture2);
+slide2.update = function() {
+    console.log('updated slide2!');
+    slide2.visible = false;
+    slide2.dead = true;
+}
+const slide3 = new Sprite(textures.texture3);
+slide3.update = function() {
+    console.log('updated slide3!');
+    slide3.visible = false;
+    slide3.dead = true;
+}
+const slide4 = new Sprite(textures.texture4);
+slide4.update = function() {
+    console.log('updated slide4!');
+    slide4.visible = false;
+    slide4.dead = true;
+}
 
-scene.add(sprite);
-renderCanvas.render(scene); 
+scene.add(slide1);
+scene.add(slide2);
+scene.add(slide3);
+scene.add(slide4);
 
-const sectionElement = document.querySelector(`button[data-selector='welcome']`);
-sectionElement.addEventListener('click', () => {
-    scene.update();
-    renderCanvas.render(scene);
+
+{
+// // Start animation loop
+// function loopy() {
+// //   requestAnimationFrame(loopy);
+
+//   // Update everything
+//   scene.update();
+
+//   // Render everything
+//   renderCanvas.render(scene);
+// }
+// requestAnimationFrame(loopy);
+}
+
+{
+// const texture2 = new Texture("./media/Slide2.JPG");
+// const texture3 = new Texture("./media/Slide3.JPG");
+// const texture4 = new Texture("./media/Slide4.JPG");
+// const slide2 = new Sprite(texture2);
+// const slide3 = new Sprite(texture3);
+// const slide4 = new Sprite(texture4);
+
+// const audio1 = new Sound('./media/test-audio.mp3');
+// const audio2 = new Sound('./media/test-audio2.mp3');
+// const audio3 = new Sound('./media/test-audio2.mp3');
+// const audio4 = new Sound('./media/test-audio2.mp3');
+
+// scene.add(audio1);
+// scene.add(audio2);
+// scene.add(audio3);
+// scene.add(audio4);
+
+// const pauseBtn = document.getElementById('pause');
+// pauseBtn.addEventListener('click', () => {
+//     audio1.track.pause();
+//     audio2.track.pause();
+//     audio3.track.pause();
+//     audio4.track.pause();
+// })
+}
+
+/***************************************
+* Side-menu hiding/unhiding sections
+**************************************/
+// get all elements as an array that will act as a selector
+const selectors = Array.from(document.querySelectorAll('[data-selector]'));
+
+// give each selector an event listener
+selectors.forEach(function(selector) {
+    selector.addEventListener('click', toggleSections);
 });
 
-// Render the main container
-// let dt = 0;
-// let last = 0;
-
-// function loop (ms) {
-//     requestAnimationFrame(loop);
-
-//     const t = ms / 1000;
-//     dt = t  - last;
-//     last = t;
-
-//     scene.update();
-//     renderCanvas.render(scene);
-
-// }
-// requestAnimationFrame(loop);
-
-// /***************************************
-// * Side-menu hiding/unhiding sections
-// **************************************/
-// // get all elements as an array that will act as a selector
-// const selectors = Array.from(document.querySelectorAll('[data-selector]'));
-
-// // get all elements that are sections
-// const sections = Array.from(document.querySelectorAll('[data-section]'));
-
-// // give each selector an event listener, remove active class
-// selectors.forEach(function(selector) {
-//     selector.addEventListener('click', toggleSections);
-// });
-
-// function toggleSections(e) {
+function toggleSections(e) {
     
-//     // selected section
-//     const sectionElement = document.querySelector(`section[data-section="${e.target.dataset.selector}"]`);
-//     // const sectionAudioSrc = document.querySelector(`[data-section="${e.target.dataset.selector}"]`);
+    // selected section
+    const sectionElement = document.querySelector(`section[data-section="${e.target.dataset.selector}"]`);
     
-//     // hide all sections
-//     sections.forEach(function(sectionElement) {
-//         sectionElement.classList.add('is-display-none');
-//     });
+    // remove active class from all selectors
+    selectors.forEach(function(selector) {
+        selector.classList.remove('is-active');
+    });
     
-//     // unhide selected section
-//     sectionElement.classList.remove('is-display-none');
-    
-//     // remove active class from all selectors
-//     selectors.forEach(function(selector) {
-//         selector.classList.remove('is-active');
-//     });
-    
-//     // make current selector active class
-//     e.target.classList.add('is-active');
-// }
+    // make current selector active class
+    e.target.classList.add('is-active');
+
+    {
+    // if(`${e.target.dataset.selector}` == "welcome") {
+    //     scene.update();
+    //     scene.add(slide1);
+    //     audio1.track.play();
+    // } else if(`${e.target.dataset.selector}` == "2") {
+    //     scene.update();
+    //     scene.add(slide2);
+    //     audio2.track.play();
+    // } else if(`${e.target.dataset.selector}` == "3") {
+    //     scene.update();
+    //     scene.add(slide3);
+    //     audio2.track.play();
+    // } else if(`${e.target.dataset.selector}` == "4") {
+    //     scene.update();
+    //     scene.add(slide4);
+    //     audio2.track.play();
+    // }
+    } 
+    console.log(scene.children);
+    scene.update();
+    renderCanvas.render(scene);
+    console.log(scene.children);
+}
