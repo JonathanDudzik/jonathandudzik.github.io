@@ -1,172 +1,184 @@
-// const welcomeButton = document.querySelector('#welcome-button');
-// welcomeButton.addEventListener('click', passWelcome);
-
 /***************************************
-* Side-menu hiding/unhiding sections
+* Container
 **************************************/
-// get all elements as an array that will act as a selector
-const selectors = Array.from(document.querySelectorAll('[data-selector]'));
-
-// get all elements that are sections
-const sections = Array.from(document.querySelectorAll('[data-section]'));
-
-// give each selector an event listener, remove active class
-selectors.forEach(function(selector) {
-    selector.addEventListener('click', toggleSections);
-});
-
-function toggleSections(e) {
+class Container {
+    constructor() {
+        this.pos = { x: 0, y: 0 };
+        this.children = [];
+    }
     
-    // selected section
-    const sectionElement = document.querySelector(`section[data-section="${e.target.dataset.selector}"]`);
-    // const sectionAudioSrc = document.querySelector(`[data-section="${e.target.dataset.selector}"]`);
+    add(child) {
+        this.children.push(child);
+        return child;
+    }
     
-    // hide all sections
-    sections.forEach(function(sectionElement) {
-        sectionElement.classList.add('is-display-none');
-    });
+    remove(child) {
+        this.children = this.children.filter(c => c !== child);
+        return child;
+    }
     
-    // unhide selected section
-    sectionElement.classList.remove('is-display-none');
+    update (dt, t) {
+        this.children.forEach(child => {
+            if (child.update) { // All elements in our game can (optionally) have an update method.
+                child.update(dt, t);
+            }
+        });
+    }
     
-    // remove active class from all selectors
-    selectors.forEach(function(selector) {
-        selector.classList.remove('is-active');
-    });
-    
-    // make current selector active class
-    e.target.classList.add('is-active');
-    
-    // messing with audio
-    let audioSource = "./media/1.mp3";
-    let moduleAudio = new Audio(audioSource);
-    moduleAudio.pause();
-    audioSource = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-    let moduleAudio = new Audio(audioSource);
-    moduleAudio.play();
-    console.log(moduleAudio);
 }
 
+/********************************************************
+* CanvasRenderer.js
+********************************************************/
+class CanvasRenderer {
+    constructor(w, h) {
+        const canvas = document.createElement("canvas");
+        this.w = canvas.width  = w;
+        this.h = canvas.height = h;
+        this.view = canvas;
+        this.ctx = canvas.getContext("2d");
+    }
 
+    render(container, clear = true) {
+        const { ctx } = this;
+        function renderRec(container) {
+            container.children.forEach(child => {
+                if(child.visible == false) {
+                    return;
+                }
+                ctx.save();
+                
+                if(child.pos) {
+                    ctx.translate(Math.round(child.pos.x), Math.round(child.pos.y));
+                }
+
+                if(child.text) {
+                    const { font, fill, align } = child.style;
+                    if(font) ctx.font = font
+                    if(fill) ctx.fillStyle = fill;
+                    if(align) ctx.textAlign = align;
+                    ctx.fillText(child.text, 0, 0);
+                }
+
+                if(child.texture) {
+                    ctx.drawImage(child.texture.img, 0, 0);
+                }
+
+
+                if(child.chilren) {
+                    renderRec(child);
+                }
+                ctx.restore();
+            })
+        }
+        if(clear) {
+            ctx.clearRect(0, 0, this.w, this.h);
+        }
+        renderRec(container);
+    }
+}
+
+/********************************************************
+* classes of leaf nodes (game entities/models)
+********************************************************/
+class Text {
+    constructor(text = "", style = {}) {
+        this.pos = { x: 0, y: 0 };
+        this.text = text;
+        this.style = style;
+        // this.update // updates can be set here too
+    }
+}
+
+class Texture {
+    constructor (url) {
+        this.img = new Image();
+        this.img.src = url;
+    }
+}
+
+class Sprite {
+    constructor(texture) {
+        this.texture = texture;
+        this.pos = { x: 0, y: 0 };
+    }
+}
 
 /***************************************
- * Quiz Logic
- **************************************/
-var vmQuiz = new Vue({
-    el: "#multi-choice-quiz-vue",
-    
-    data: {
-        currentQuestion: 0,
-        totalScore: 0,
-        showModalClass: false,
-        quizModalHeading: 'That is incorrect.',
-        quizModalBody: '',
-        hideQuizContent: false,
-        hideRetakeBtn: true,
-        hideCertBtn: true,
+* Set-up code
+**************************************/
+const w = 640;
+const h = 480;
+const renderCanvas = new CanvasRenderer(w, h);
+document.querySelector("#board").appendChild(renderCanvas.view);
 
-        // ARRAY OF QUESTION OBJECTS
-        allQuestions: [
-            {
-                question: "Which programs are exempt from collecting Income Eligibility Applications?",
-                choices: ["Only At-Risk Afterschool Centers and Emergency Shelters", "Only Emergency Shelters and Head Start Programs", "At-Risk Afterschool Centers, Emergency Shelters and Head Start Programs"],
-                explanation: "At-Risk Afterschool Centers, Emergency Shelters and Head Start Programs including Migrant Head Start and Early Head Start programs are exempt from collecting IEAs",
-                correct: 2
-            },
-            {
-                question: "For how long is a child IEA valid?",
-                choices: ["3 years plus the current year", "One year from the date that it was signed by the parent or guardian", "For as long as the child is continuously enrolled in the center"],
-                explanation: "Remember, child IEA is valid for one year from the date that it was signed by the parent or guardian",
-                correct: 1
-            },
-            {
-                question: "Which of the following is a consequence of missing or incomplete IEAs?",
-                choices: ["Your institution will be required to retake this training", "There will be reimbursement disallowances", "Your institution will be required to produce proper enrollment documentation within 30 days"],
-                explanation: "Missing or incomplete IEAs could cost the center money as reimbursement is disallowed for participants without proper IEAs",
-                correct: 1
-            },
-            {
-                question: "Which of the following describe information that must be recorded on IEA?",
-                choices: ["The family’s household income", "The signature of the Eligibility Official", "The participant’s ethnic and racial data and categorical classification"],
-                explanation: "The signature of the Eligibility Official is required",
-                correct: 1
-            },
-            {
-                question: "What is the best practice when a child withdraws from the CACFP?",
-                choices: ["Document the participant withdrawal date on the IEA", "Destroy the IEA to keep it confidential", "Send the IEA to the State agency explaining the withdrawal"],
-                explanation: "When a child withdraws, write the participant’s withdrawal date on the IEA then re-file the documentation",
-                correct: 0
-            },
-            {
-                question: "How long must IEAs be kept on file?",
-                choices: ["One year after the participant withdraws", "30 days after the participant withdraws", "3 years plus the current year"],
-                explanation: "IEAs must be maintained on file for 3 years plus the current year. Additionally, it is best practice to have a policy in place that specifies how the institution will retain the records for the required 3 years plus the current year",
-                correct: 2
-            }
-        ],
-    },
+const scene = new Container();
 
-    computed: {
-        questionTxt() {
-          return this.allQuestions[this.currentQuestion].question
-        },
-        choice1() {
-          return this.allQuestions[this.currentQuestion].choices[0];
-        },
-        choice2() {
-          return this.allQuestions[this.currentQuestion].choices[1];
-        },
-        choice3() {
-          return this.allQuestions[this.currentQuestion].choices[2];
-        }
-    },
+const texture = new Texture("./media/getting-started-ic-v1.jpg");
 
-    methods: {
-        quizSubmit() {
+const sprite = new Sprite(texture);
+sprite.pos.x = w / 2;
+sprite.pos.y = h / 2;
 
-            // user's selected radio button
-            const selectedChoice = document.querySelector('input[name="answer"]:checked').value;
-            
-            // all checkboxes in quiz
-            const quizCheckboxes = Array.from(document.forms["quizForm"]["answer"]);
-            
-            // display defaults in case of incorrect answer
-            if (selectedChoice !== this.allQuestions[this.currentQuestion].correct) {
-                this.quizModalHeading = 'That is incorrect.';
-                this.quizModalBody = '';
-            };
-            
-            // change feedback and increase score if correct answer
-            if (selectedChoice == this.allQuestions[this.currentQuestion].correct) {
-                this.quizModalHeading = "That is correct!";
-                this.quizModalBody = (this.allQuestions[this.currentQuestion].explanation);
-                this.totalScore ++;
-            };
+scene.add(sprite);
+renderCanvas.render(scene); 
 
-            // show the quiz modal with feedback
-            this.showModalClass = true;
-            
-            // do something if end of quiz has been reached
-            if (this.currentQuestion == this.allQuestions.length -1 ) {
-                this.totalScore >= (this.allQuestions.length*0.75) ? vmQuiz.hideCertBtn = false : vmQuiz.hideRetakeBtn = false;
-                this.hideQuizContent = true;
-                return
-            };
-            
-            // move to the next question (will not increment if end of quiz has been reached)
-            this.currentQuestion ++;
-
-            // goes through the form and UNchecks each answer
-            quizCheckboxes.forEach(function(quizCheckbox) {
-                quizCheckbox.checked = false;
-            }); 
-        },
-
-        reloadQuiz() {
-            this.currentQuestion = 0;
-            this.totalScore = 0;
-            this.hideQuizContent = false;
-            this.hideRetakeBtn = true;
-        }
-    }
+const sectionElement = document.querySelector(`button[data-selector='welcome']`);
+sectionElement.addEventListener('click', () => {
+    scene.update();
+    renderCanvas.render(scene);
 });
+
+// Render the main container
+// let dt = 0;
+// let last = 0;
+
+// function loop (ms) {
+//     requestAnimationFrame(loop);
+
+//     const t = ms / 1000;
+//     dt = t  - last;
+//     last = t;
+
+//     scene.update();
+//     renderCanvas.render(scene);
+
+// }
+// requestAnimationFrame(loop);
+
+// /***************************************
+// * Side-menu hiding/unhiding sections
+// **************************************/
+// // get all elements as an array that will act as a selector
+// const selectors = Array.from(document.querySelectorAll('[data-selector]'));
+
+// // get all elements that are sections
+// const sections = Array.from(document.querySelectorAll('[data-section]'));
+
+// // give each selector an event listener, remove active class
+// selectors.forEach(function(selector) {
+//     selector.addEventListener('click', toggleSections);
+// });
+
+// function toggleSections(e) {
+    
+//     // selected section
+//     const sectionElement = document.querySelector(`section[data-section="${e.target.dataset.selector}"]`);
+//     // const sectionAudioSrc = document.querySelector(`[data-section="${e.target.dataset.selector}"]`);
+    
+//     // hide all sections
+//     sections.forEach(function(sectionElement) {
+//         sectionElement.classList.add('is-display-none');
+//     });
+    
+//     // unhide selected section
+//     sectionElement.classList.remove('is-display-none');
+    
+//     // remove active class from all selectors
+//     selectors.forEach(function(selector) {
+//         selector.classList.remove('is-active');
+//     });
+    
+//     // make current selector active class
+//     e.target.classList.add('is-active');
+// }
