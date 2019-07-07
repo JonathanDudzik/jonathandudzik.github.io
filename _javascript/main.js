@@ -13,14 +13,14 @@ class Container {
     }
     
     remove(child) {
-        this.children = this.children.filter(c => c !== child);
-        return child;
+        this.children = this.children.filter(c => c == child);
+        // return child; // not sure what the purpose of this is...
     }
     
-    update () {
+    update (dt, t) {
         this.children = this.children.filter(child => {
             if (child.update) {
-                child.update(); //there was a "this" as a parameter...
+                child.update(dt, t, this); //why "this" as a parameter...
             }
             return child.dead ? false : true;
         });
@@ -62,7 +62,7 @@ class CanvasRenderer {
                     ctx.drawImage(child.texture.img, 0, 0);
                 }
 
-                if(child.chilren) {
+                if(child.children) {
                     renderRec(child);
                 }
                 ctx.restore();
@@ -72,6 +72,52 @@ class CanvasRenderer {
             ctx.clearRect(0, 0, this.w, this.h);
         }
         renderRec(container);
+    }
+}
+
+/********************************************************
+* Sound class
+********************************************************/
+class Sound {
+    constructor(src, options = {}) {
+        this.src = src;
+        this.options = Object.assign({ volume: 1 }, options);
+
+        // configure audio element
+        const audio = new Audio();
+        audio.src = src;
+
+        audio.addEventListener('error', () => {
+            throw Error(`Error loading audio: ${src}`);
+        }, false);
+
+        audio.addEventListener("ended", () => {
+            this.playing = false
+        }, false);
+            
+        this.audio = audio;
+    }
+
+    play(overrides) {
+        const { audio, options } = this;
+        const opts = Object.assign({ time: 0 }, options, overrides);
+        audio.volume = opts.volume;
+        audio.currentTime = opts.time;
+        audio.play();
+        this.playing = true;
+    }
+    
+    stop() {
+        this.audio.pause();
+        this.playing = false;
+    }
+
+    get volume() {
+        return this.audio.volume;
+    }
+
+    set volume(volume) {
+        this.options.volume = this.audio.volume = volume;
     }
 }
 
@@ -97,21 +143,7 @@ class Sprite {
     constructor(texture) {
         this.texture = texture;
         this.pos = { x: 0, y: 0 };
-        this.visible = true;
     }
-}
-
-{
-// class Sound {
-//     constructor(url) {
-//         this.track = new Audio();
-//         this.track.src = url;
-//         this.update = function() {
-//             this.track.pause();
-//             this.track.currentTime = 0;
-//         }
-//     }
-// }
 }
 
 /***************************************
@@ -121,97 +153,64 @@ const w = 960;
 const h = 720;
 const renderCanvas = new CanvasRenderer(w, h);
 document.querySelector("#board").appendChild(renderCanvas.view);
+const speed = Math.random() * 150 + 50;
+let dt = 0;
+let last = 0;
 
 /***************************************
-* Portal Objects
+ * Portal Objects
 **************************************/
 const scene = new Container();
+
 const textures = {
-    background: new Texture("./media/background.jpg"),
-    texture1: new Texture("./media/Slide1.JPG"),
-    texture2: new Texture("./media/Slide2.JPG"),
-    texture3: new Texture("./media/Slide3.JPG"),
-    texture4: new Texture("./media/Slide4.JPG"),
+    background1: new Texture("./media/Slide.JPG"),
+    background2: new Texture("./media/Slide1.JPG"),
+    background3: new Texture("./media/Slide2.JPG"),
+    background4: new Texture("./media/Slide3.JPG"),
+    background5: new Texture("./media/Slide4.JPG"),
+    pointer1: new Texture("./media/pointer1.png")
 }
 
-// render background
-scene.add(new Sprite(textures.background));
-
-// render images
-const slide1 = new Sprite(textures.texture1);
-slide1.update = function() {
-    console.log('updated slide1!');
-    slide1.visible = false;
-    slide1.dead = true;
-}
-const slide2 = new Sprite(textures.texture2);
-slide2.update = function() {
-    console.log('updated slide2!');
-    slide2.visible = false;
-    slide2.dead = true;
-}
-const slide3 = new Sprite(textures.texture3);
-slide3.update = function() {
-    console.log('updated slide3!');
-    slide3.visible = false;
-    slide3.dead = true;
-}
-const slide4 = new Sprite(textures.texture4);
-slide4.update = function() {
-    console.log('updated slide4!');
-    slide4.visible = false;
-    slide4.dead = true;
+const sounds = {
+    sound1: new Sound('./media/test-audio.mp3'),
+    sound2: new Sound('./media/test-audio2.mp3'),
 }
 
-scene.add(slide1);
-scene.add(slide2);
-scene.add(slide3);
-scene.add(slide4);
+// images (two ways to add images to scene object)
+scene.add(new Sprite(textures.background2));
 
-
-{
-// // Start animation loop
-// function loopy() {
-// //   requestAnimationFrame(loopy);
-
-//   // Update everything
-//   scene.update();
-
-//   // Render everything
-//   renderCanvas.render(scene);
-// }
-// requestAnimationFrame(loopy);
-}
-
-{
-// const texture2 = new Texture("./media/Slide2.JPG");
-// const texture3 = new Texture("./media/Slide3.JPG");
-// const texture4 = new Texture("./media/Slide4.JPG");
-// const slide2 = new Sprite(texture2);
-// const slide3 = new Sprite(texture3);
-// const slide4 = new Sprite(texture4);
-
-// const audio1 = new Sound('./media/test-audio.mp3');
-// const audio2 = new Sound('./media/test-audio2.mp3');
-// const audio3 = new Sound('./media/test-audio2.mp3');
-// const audio4 = new Sound('./media/test-audio2.mp3');
-
-// scene.add(audio1);
-// scene.add(audio2);
-// scene.add(audio3);
-// scene.add(audio4);
-
-// const pauseBtn = document.getElementById('pause');
-// pauseBtn.addEventListener('click', () => {
-//     audio1.track.pause();
-//     audio2.track.pause();
-//     audio3.track.pause();
-//     audio4.track.pause();
-// })
-}
+const pointer1 = new Sprite(textures.pointer1);
+scene.add(pointer1);
 
 /***************************************
-* Side-menu hiding/unhiding sections
+* Object updates
+**************************************/
+pointer1.update = function (dt) {
+    // console.log(pointer1.pos.x);
+    this.pos.y -= speed * dt;
+    if (this.pos.y < -32) {
+      this.pos.y = 600;
+    }
+  };
+
+/***************************************
+* Animation loop
+**************************************/
+
+function loopy(ms) {
+    requestAnimationFrame(loopy);
+
+    const t = ms / 1000;
+    dt = t - last;
+    last = t;
+
+    scene.update(dt, t);
+    renderCanvas.render(scene);
+}
+requestAnimationFrame(loopy);
+
+/***************************************
+* Side-menu selectors
 **************************************/
 // get all elements as an array that will act as a selector
 const selectors = Array.from(document.querySelectorAll('[data-selector]'));
@@ -222,10 +221,6 @@ selectors.forEach(function(selector) {
 });
 
 function toggleSections(e) {
-    
-    // selected section
-    const sectionElement = document.querySelector(`section[data-section="${e.target.dataset.selector}"]`);
-    
     // remove active class from all selectors
     selectors.forEach(function(selector) {
         selector.classList.remove('is-active');
@@ -233,28 +228,4 @@ function toggleSections(e) {
     
     // make current selector active class
     e.target.classList.add('is-active');
-
-    {
-    // if(`${e.target.dataset.selector}` == "welcome") {
-    //     scene.update();
-    //     scene.add(slide1);
-    //     audio1.track.play();
-    // } else if(`${e.target.dataset.selector}` == "2") {
-    //     scene.update();
-    //     scene.add(slide2);
-    //     audio2.track.play();
-    // } else if(`${e.target.dataset.selector}` == "3") {
-    //     scene.update();
-    //     scene.add(slide3);
-    //     audio2.track.play();
-    // } else if(`${e.target.dataset.selector}` == "4") {
-    //     scene.update();
-    //     scene.add(slide4);
-    //     audio2.track.play();
-    // }
-    } 
-    console.log(scene.children);
-    scene.update();
-    renderCanvas.render(scene);
-    console.log(scene.children);
 }
