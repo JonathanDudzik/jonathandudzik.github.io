@@ -16,63 +16,10 @@
                 <h3 class="has-text-dark">It appears that Javascript is not enabled on your browser. This site will not work without scripts.</h3>
             </div>
         </noscript>
-        <nav class="navbar is-fixed-top" role="top navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="#" aria-label="return to beginning">
-                    <img src="./media/NCDHHS_DPH-395x100.png" width="276.5" height="70" alt="DHHS logo">
-                </a>
-            </div>
-            <div class="navbar-menu is-active">
-                <div class="navbar-end is-flex">
-                    <button id="pause" href="#" class="navbar-item is-flex is-size-4" aria-label="play audio">
-                        <span class="icon has-text-white">
-                            <i class="fas fa-pause"></i>
-                        </span>
-                        <p class="has-text-white icon-padding"></p>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        <div class="columns is-marginless min-height-full">
-                <div class="column is-inline-block is-2 side-menu">
-                    <nav class="" role="navigation" aria-label="section navigation">
-                        <p class="menu-label">Contents</p>
-                        <ul class="menu-list">
-                            <li><a href="#welcome" class="is-active" data-selector="welcome">Welcome</a></li>
-                            <li><a href="#regulations" data-selector="2">2</a></li>
-                            <li><a href="#requirements" data-selector="4">3</a></li>
-                            <li><a href="#enrollment-form"  data-selector="5">5</a></li>
-                        </ul>
-                        <p class="menu-label is-padding-2-top">Module Resources</p>
-                        <ul class="menu-list">
-                            <li><a href="https://www.fns.usda.gov/part-226%E2%80%94child-and-adult-care-food-program" target="_blank">7 CFR PART 226</a></li>
-                            <li><a href="https://www.nutritionnc.com/snp/pdf/cacfp/forms/fy2019/enrollment/AdultEnrollmentForm-7-2018.pdf" target="_blank">Enrollment Form</a></li>
-                            <li><a href="https://www.nutritionnc.com/snp/index.htm/" target="_blank">NC CACFP Website</a></li>
-                            <li><a href="./media/adult-enrollment-print.pdf" target="_blank">Download Training Transcript</a></li>
-                            <li><a href="./media/adult-enrollment-audio.mp3" target="_blank">Download Audio MP3</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="column is-10">
-                    <button id="button" class="button">
-                        CLICK ME
-                    </button>
-                    <section class="section">
-                        <div id="board"></div>
-                    </section>
-                    <section class="section">
-                        <div id="board"></div>
-                    </section>
-                    <section class="section">
-                        <div id="board"></div>
-                    </section>
-                    <section class="section">
-                        <div id="board"></div>
-                    </section>
-                </div>
-            </div>
+        <div class="min-height-full">
+            <div id="board"></div>  
+        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
         <script type="text/javascript" src="lib/main.js"></script>
     </body>
 </html>    
