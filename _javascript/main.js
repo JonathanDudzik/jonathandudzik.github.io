@@ -1,3 +1,61 @@
+class Container {
+    constructor() {
+        this.children = [];
+    }
+    
+    add(child) {
+        this.children.push(child);
+        return child;
+    }
+    
+    remove(child) {
+        this.children = this.children.filter(c => c == child);
+        return child;
+    }
+    
+    update (dt, t) {
+        this.children = this.children.filter(child => {
+            if (child.update) {
+                child.update(dt, t, this); //why "this" as a parameter...
+            }
+            return child.dead ? false : true;
+        });
+    }
+}
+
+
+class Renderer {
+    constructor(tag) {
+    }
+
+    render(container) {
+        function renderObject(container) {
+            container.children.forEach(child => {
+                if(child.visible == false) {
+                    return;
+                }
+                
+                if(child.image) {
+                    console.log("here is an image file:" + child.image);
+                }
+                
+                if(child.text) {
+                    console.log("here is an text file:" + child.text);
+                } 
+                
+                if(child.video) {
+                    console.log("here is an video file:" + child.video);
+                }
+
+                if(child.audio) {
+                    console.log("here is an audio file:" + child.audio);
+                }
+            })
+        }
+        renderObject(container);
+    }
+}
+
 /***************************************
 * Container
 class Container {
@@ -80,24 +138,22 @@ class CanvasRenderer {
  ********************************************************/
 class Sound {
     constructor(src, options = {}) {
-        this.src = src;
         this.options = Object.assign({ volume: 1 }, options);
-
+        
         // configure audio element
         const audio = new Audio();
         audio.src = src;
-
+        this.audio = audio;
+        
         audio.addEventListener('error', () => {
             throw Error(`Error loading audio: ${src}`);
         }, false);
-
+        
         audio.addEventListener("ended", () => {
             this.playing = false
         }, false);
-            
-        this.audio = audio;
     }
-
+    
     play(overrides) {
         const { audio, options } = this;
         const opts = Object.assign({ time: 0 }, options, overrides);
@@ -111,11 +167,11 @@ class Sound {
         this.audio.pause();
         this.playing = false;
     }
-
+    
     get volume() {
         return this.audio.volume;
     }
-
+    
     set volume(volume) {
         this.options.volume = this.audio.volume = volume;
     }
@@ -124,10 +180,17 @@ class Sound {
 /***************************************
  * Portal Objects
 **************************************/
-const sounds = {
-    sound1: new Sound('./media/test-audio.mp3'),
-    sound2: new Sound('./media/test-audio2.mp3'),
-}
+const renderSound = new Renderer();
+const sounds = new Container();
+const sound1 = new Sound("./media/test-audio.mp3");
+sounds.add(sound1);
+// console.log(sounds.children)
+
+document.getElementById("button").addEventListener("click", () => {
+    renderSound.render(sounds);
+});
+
+
 
 /***************************************
 * Side-menu selectors
