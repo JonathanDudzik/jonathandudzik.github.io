@@ -1,6 +1,5 @@
 /***************************************
 * Container
-**************************************/
 class Container {
     constructor() {
         this.pos = { x: 0, y: 0 };
@@ -26,10 +25,10 @@ class Container {
         });
     }
 }
+**************************************/
 
 /********************************************************
 * CanvasRenderer.js
-********************************************************/
 class CanvasRenderer {
     constructor(w, h) {
         const canvas = document.createElement("canvas");
@@ -51,7 +50,7 @@ class CanvasRenderer {
                 if(child.pos) {
                     ctx.translate(Math.round(child.pos.x), Math.round(child.pos.y));
                 }
-
+                
                 if(child.text) {
                     const { font, fill, align } = child.style;
                     if(font) ctx.font = font
@@ -61,7 +60,7 @@ class CanvasRenderer {
                 } else if(child.texture) {
                     ctx.drawImage(child.texture.img, 0, 0);
                 }
-
+                
                 if(child.children) {
                     renderRec(child);
                 }
@@ -74,10 +73,11 @@ class CanvasRenderer {
         renderRec(container);
     }
 }
+********************************************************/
 
 /********************************************************
-* Sound class
-********************************************************/
+ * Sound class
+ ********************************************************/
 class Sound {
     constructor(src, options = {}) {
         this.src = src;
@@ -121,93 +121,13 @@ class Sound {
     }
 }
 
-/********************************************************
-* classes of leaf nodes (game entities/models)
-********************************************************/
-class Text {
-    constructor(text = "", style = {}) {
-        this.pos = { x: 0, y: 0 };
-        this.text = text;
-        this.style = style;
-    }
-}
-
-class Texture {
-    constructor (url) {
-        this.img = new Image();
-        this.img.src = url; 
-    }
-}
-
-class Sprite {
-    constructor(texture) {
-        this.texture = texture;
-        this.pos = { x: 0, y: 0 };
-    }
-}
-
-/***************************************
-* Set-up code
-**************************************/
-const w = 960;
-const h = 720;
-const renderCanvas = new CanvasRenderer(w, h);
-document.querySelector("#board").appendChild(renderCanvas.view);
-const speed = Math.random() * 150 + 50;
-let dt = 0;
-let last = 0;
-
 /***************************************
  * Portal Objects
 **************************************/
-const scene = new Container();
-
-const textures = {
-    background1: new Texture("./media/Slide.JPG"),
-    background2: new Texture("./media/Slide1.JPG"),
-    background3: new Texture("./media/Slide2.JPG"),
-    background4: new Texture("./media/Slide3.JPG"),
-    background5: new Texture("./media/Slide4.JPG"),
-    pointer1: new Texture("./media/pointer1.png")
-}
-
 const sounds = {
     sound1: new Sound('./media/test-audio.mp3'),
     sound2: new Sound('./media/test-audio2.mp3'),
 }
-
-// images (two ways to add images to scene object)
-scene.add(new Sprite(textures.background2));
-
-const pointer1 = new Sprite(textures.pointer1);
-scene.add(pointer1);
-
-/***************************************
-* Object updates
-**************************************/
-pointer1.update = function (dt) {
-    // console.log(pointer1.pos.x);
-    this.pos.y -= speed * dt;
-    if (this.pos.y < -32) {
-      this.pos.y = 600;
-    }
-  };
-
-/***************************************
-* Animation loop
-**************************************/
-
-function loopy(ms) {
-    requestAnimationFrame(loopy);
-
-    const t = ms / 1000;
-    dt = t - last;
-    last = t;
-
-    scene.update(dt, t);
-    renderCanvas.render(scene);
-}
-requestAnimationFrame(loopy);
 
 /***************************************
 * Side-menu selectors
@@ -228,4 +148,6 @@ function toggleSections(e) {
     
     // make current selector active class
     e.target.classList.add('is-active');
+
+    sounds.sound1.play();
 }
