@@ -1,37 +1,95 @@
 function PieChart(canvasId, data) {
-    // user defined data
+    // setup data and canvas
+    this.data = data;
     this.canvas = document.getElementById(canvasId);
     this.context = this.canvas.getContext("2d");
-    this.pieAreaWidth = this.canvas.width;
-    this.pieAreaHeight = this.canvas.height;
-    this.data = data;
-    
-    // constant styles
-    // this.padding = 10;
-    // this.legendBorder = 2;
-    // this.pieBorder = 5;
-    // this.colorLabelSize = 20;
-    // this.borderColor = "#555";
-    // this.shadowColor = "#777";
-    // this.shadowBlur = 10;
-    // this.shadowX = 2;
-    // this.shadowY = 2;
-    // this.font = "16pt Calibri"; 
+
+    // changing canvas standard styles
+    this.context.textBaseline = "middle";
+    this.context.font = 'bold 12pt serif';
+    this.context.lineWidth = "2";
+    this.context.strokeStyle = "black";
+
+    // sizing and locating created objects
+    this.legendWidth = this.getLegendWidth();
+    this.canvasPadding = 10;
+    this.pieAreaX = this.canvas.width - this.legendWidth;
+    this.pieAreaY = this.canvas.height
+    this.pieLocationX = this.pieAreaX / 2;
+    this.pieLocationY = this.pieAreaY / 2;
+    this.pieRadius = Math.min(this.pieAreaX, this.pieAreaY / 2 - this.canvasPadding);
+
+    // drawing the things
+    this.drawPieBorder();
+    this.drawLegend();
 };
 
-window.onload = function() {
-    const pieChart = new PieChart("myCanvas");
+
+PieChart.prototype.getLegendWidth = function() {
+    let { context, data } = this;
+    let labelWidth = 0;
+    data.forEach(function(property){
+        labelWidth = Math.max(labelWidth , context.measureText(property.label).width);
+    }) 
+    return (labelWidth + 20 + 5 + 20)
 }
 
-const data = ["Joan", "Danny", "Joe", "Jonathan"];
+PieChart.prototype.drawLegend = function() {
+    let { context } = this;
 
-function findLegendWidth() {
-    let labelWidth = 0 
+    // context.save();
 
-    for(let i = 0; i <  data.length; i++) {
-        let label = data[i];
-        labelWidth = Math.max(labelWidth, context.measureText(label).width);
-    }
+    // forEach method will do this for each array property
+    context.beginPath();
+    context.rect(this.pieAreaX, 20, 20, 20);
+    context.closePath();
+    context.fillStyle = "green";
+    context.fill();
+    context.stroke();
+    context.fillText(this.data[4].label, this.pieAreaX + this.canvasPadding + 20, 20 + 20 / 2);
+    context.restore;
+}
 
-    return labelWidth;
+PieChart.prototype.drawPieBorder = function() {
+    let { context } = this;
+    
+    context.save;
+    context.beginPath();
+    context.fillStyle = "white";
+    context.borderSize = 5;
+    context.shadowColor = "#777";
+    context.shadowBlur = 10;
+    context.shadowOffsetX = 1;
+    context.shadowOffsetY = 2;
+    context.arc(this.pieLocationX, this.pieLocationY, this.pieRadius + context.borderSize, 0, Math.PI * 2);
+    context.fill();
+    context.closePath();
+    context.restore();
+}
+
+window.onload = function() {
+    const data = [{
+        label: "Eating",
+        value: 2,
+        color: "red"
+        }, {
+        label: "Working",
+        value: 8,
+        color: "blue"
+        }, {
+        label: "Sleeping",
+        value: 8,
+        color: "green"
+        }, {
+        label: "Errands",
+        value: 2,
+        color: "yellow"
+        }, {
+        label: "Entertainment",
+        value: 4,
+        color: "violet"
+    }];
+    
+    const pieChart = new PieChart("myCanvas", data);
+    console.log(pieChart);
 }
