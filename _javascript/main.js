@@ -11,13 +11,13 @@ function PieChart(canvasId, data) {
     this.context.strokeStyle = "black";
 
     // sizing and locating created objects
+    this.canvasPadding = 15;
     this.legendWidth = this.getLegendWidth();
-    this.canvasPadding = 10;
     this.pieAreaX = this.canvas.width - this.legendWidth;
     this.pieAreaY = this.canvas.height
     this.pieLocationX = this.pieAreaX / 2;
     this.pieLocationY = this.pieAreaY / 2;
-    this.pieRadius = Math.min(this.pieAreaX, this.pieAreaY / 2 - this.canvasPadding);
+    this.pieRadius = Math.min(this.pieAreaX, this.pieAreaY / 2 - this.canvasPadding - 5);
 
     // drawing the things
     this.drawPieBorder();
@@ -28,25 +28,26 @@ function PieChart(canvasId, data) {
 PieChart.prototype.getLegendWidth = function() {
     let { context, data } = this;
     let labelWidth = 0;
+    
     data.forEach(function(property){
-        labelWidth = Math.max(labelWidth , context.measureText(property.label).width);
-    }) 
-    return (labelWidth + 20 + 5 + 20)
+        labelWidth = Math.max(labelWidth, context.measureText(property.label).width);
+    });
+
+    return labelWidth + this.canvasPadding * 4
 }
 
 PieChart.prototype.drawLegend = function() {
     let { context } = this;
-
-    // context.save();
+    context.save();
 
     // forEach method will do this for each array property
     context.beginPath();
-    context.rect(this.pieAreaX, 20, 20, 20);
+    context.rect(this.pieAreaX, this.canvasPadding, 20, 20);
     context.closePath();
     context.fillStyle = "green";
     context.fill();
     context.stroke();
-    context.fillText(this.data[4].label, this.pieAreaX + this.canvasPadding + 20, 20 + 20 / 2);
+    context.fillText(this.data[4].label, this.pieAreaX + this.canvasPadding * 2, this.canvasPadding * 2);
     context.restore;
 }
 
