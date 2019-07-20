@@ -12,42 +12,475 @@
     </head>
     <body class="has-navbar-fixed-top">
         <noscript>
-            <div class="section content is-large is-padding-2-top">
+            <div class="section content is-large my-padding-top-medium" style="z-index: 40;">
                 <h3 class="has-text-dark">It appears that Javascript is not enabled on your browser. This site will not work without scripts.</h3>
             </div>
         </noscript>
-        <nav class="navbar is-fixed-top" role="top navigation">
+        <nav class="navbar is-fixed-top has-shadow" role="top navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="#" aria-label="return to beginning">
-                    <img src="./media/NCDHHS_DPH-395x100.png" width="276.5" height="70" alt="DHHS logo">
+                <a class="navbar-item" href="" data-selector="home">
+                    <div class="content">
+                        <h1 class="has-text-white"><i class="icon fas fa-shapes" style="margin-left: 30px; padding-right: 30px;"></i> eLearning Portfolio</h1>                  
+                    </div>
                 </a>
             </div>
             <div class="navbar-menu is-active">
-                <div class="navbar-end is-flex">
-                    <button id="pause" href="#" class="navbar-item is-flex is-size-4" aria-label="play audio">
-                        <span class="icon has-text-white">
-                            <i class="fas fa-exclamation"></i>
+                <div class="navbar-end is-flex" style="padding-right: 30px;">
+                    <div class="navbar-item has-text-white">
+                        <h2 class="is-capitalized has-text-centered is-size-4 has-text-weight-semibold is-italic">contact me:</h2>
+                    </div>
+                    <a class="navbar-item is-flex is-size-4 has-text-white" aria-label="Send Jonathan an email">
+                        <span class="icon">
+                            <i class="fas fa-envelope"></i>
                         </span>
-                        <p class="has-text-white icon-padding">BUTTON</p>
-                    </button>
+                    </a>
+                    <a class="navbar-item is-flex is-size-4 has-text-white" aria-label="visit LinkedIn page">
+                        <span class="icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </span>
+                    </a>
+                    <a class="navbar-item is-flex is-size-4 has-text-white" aria-label="Visit Twitter page">
+                        <span class="icon">
+                            <i class="fab fa-twitter"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
         </nav>
-        <div class="columns is-marginless min-height-full">
-                <div class="column is-inline-block is-2 side-menu">
-                    <nav class="" role="navigation" aria-label="section navigation">
-                        <p class="menu-label">Contents</p>
+        <div class="columns is-marginless my-min-height-full">
+            <div class="column is-inline-block is-2">
+                <nav role="navigation" aria-label="section navigation">
+                    <!-- <p class="menu-label">Data Visualization</p>
                         <ul class="menu-list">
-                            <li><a href="#welcome" class="is-active" data-selector="welcome">Welcome</a></li>
+                            <li><a href="#" class="" data-selector="">Pie Chart</a></li>
+                        </ul> 
+                        <ul class="menu-list">
+                            <li><a href="#" class="" data-selector="">Clock</a></li>
+                        </ul> 
+                    -->
+                    <!-- <p class="menu-label">Audiovisual</p> 
+                        <ul class="menu-list">
+                            <li><a href="#" class="" data-selector="">Voiceovers</a></li>
+                        </ul> 
+                        <ul class="menu-list">
+                            <li><a href="#" class="" data-selector="">Screencasts</a></li>
                         </ul>
-                    </nav>
-                </div>
-                <div class="column is-10">
-                    <section class="section">
-                        <canvas id="myCanvas" width="600" height="300" style="border:1px solid black;"></canvas>
-                    </section>
-                </div>
+                        <ul class="menu-list">
+                            <li><a href="#" class="" data-selector="">Animations</a></li>
+                        </ul>
+                    -->
+                    <!-- <p class="menu-label">Quizzes</p> -->
+                    <!-- <p class="menu-label">Certificate</p> -->
+
+                    <p class="menu-label">Basic Layouts</p>
+                    <ul class="menu-list">
+                        <li><a href="#" class="" data-selector="images">Images</a></li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a href="#" class="" data-selector="tables">Tables</a></li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a href="#" class="" data-selector="lists">Lists</a></li>
+                    </ul>
+                </nav>
             </div>
+            <div class="column is-10">
+                <section class="section my-invisible-outline" data-section="home" tabindex="-1">
+                    <div class="notification">
+                        <h1 class="title is-size-4-mobile is-size-1">Sample eLearning Projects</h1>
+                        <h2 class="subtitle">Jonathan Wesley Dudzik</h2>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-8">
+                            <div class="content is-large is-padding-2-top"> 
+                                <p>I am an Instructional Designer and Web Developer out of Raleigh, NC. I have been developing course content over the past four years on platforms like WordPress, Moodle, AWS, and Adobe Experience Cloud. I work for the North Carolina Department of Health and Human Services as their Training Development Specialist. I was also the Mobile app developer for the 2019 IEEE ICICLE Conference on Learning Engineering</p>
+                                <p>I build new eLearning courses or reengineer pre-existing ones as responsive HTML5 applications that are deployable on any LMS, website or cloud platform.</p>
+                                <h3 class="has-text-dark">Navigation Instructions</h3>
+                                <p>So please browse my site full of elearing examples and let me know if you have any questions! Use the menu to the left to navigate through the <em>contents and examples</em> of my projects.</p> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section="images" tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Images</h1>
+                        <p>The overuse of images is widespread in many eLearning courses; however, if your images are <em>relevant</em> or <em>explanatory</em>, then sizing and positioning them within the rest of the content becomes imperative! <br>Here are some examples of images being used alongside text:</p> 
+                    </div>
+                    <br>
+                    <div class="columns is-vcentered">
+                        <div class="column is-3">
+                            <figure>
+                                <img class="box" src="./media/artemis.jpg">
+                            </figure>
+                        </div>
+                        <div class="column content is-medium is-9">
+                            <p>Artemis will light our way to Mars. The new Artemis identity draws bold inspiration from the Apollo program and forges its own path, showing how it will pursue lunar exploration like never before and pave the way to Mars.</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <figure>
+                            <img class="my-basic-shadow" src="./media/takeoff.jpg">
+                        </figure>
+                        <p>The space shuttle Atlantis is seen shortly after the rotating service structure (RSS) was rolled back at launch pad 39a, Thursday, July 7, 2011 at the NASA Kennedy Space Center in Cape Canaveral, Fla. Atlantis is set to liftoff Friday, July 8, on the final flight of the shuttle program, STS-135, a 12-day mission to the International Space Station. Photo Credit: (NASA/Bill Ingalls)</p>
+                    </div>
+                    <br>
+                    <div class="columns">
+                        <div class="column content is-medium is-8">
+                            <p>Neil Alden Armstrong (August 5, 1930 – August 25, 2012) was an American astronaut and aeronautical engineer who was the first person to walk on the Moon. He was also a naval aviator, test pilot, and university professor. A graduate of Purdue University, Armstrong studied aeronautical engineering with his college tuition paid for by the U.S. Navy under the Holloway Plan. He became a midshipman in 1949, and a naval aviator the following year. He saw action in the Korean War, flying the Grumman F9F Panther from the aircraft carrier USS Essex. In September 1951, he was hit by anti-aircraft fire while making a low bombing run, and was forced to bail out. After the war, he completed his bachelor's degree at Purdue and became a test pilot at the National Advisory Committee for Aeronautics (NACA) High-Speed Flight Station at Edwards Air Force Base in California. He was the project pilot on Century Series fighters and flew the North American X-15 seven times. He was also a participant in the U.S. Air Force's Man in Space Soonest and X-20 Dyna-Soar human spaceflight programs.</p>
+                        </div>
+                        <div class="column is-4">
+                            <div class="notification">
+                                <figure>
+                                    <img src="./media/moon-man.jpg">
+                                </figure>
+                                <p class="content">Neil Armstrong's Pressure Suit, A7-L, A19730040000, Apollo 11, that he wore to walk on the moon July 20, 1969 in its new display case in The Wright Brothers & the Invention of the Aerial Age Gallery of the National Air and Space Museum, July 12, 2019. (Smithsonian Air and Space Museum photo by Eric Long)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section="tables" tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Tables</h1>
+                        <p>How to best represent complex data is an important concept in design. I like to use tables when information correlations are extensive or complex:</p> 
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th><abbr title="Position">Pos</abbr></th>
+                            <th>Team</th>
+                            <th><abbr title="Played">Pld</abbr></th>
+                            <th><abbr title="Won">W</abbr></th>
+                            <th><abbr title="Drawn">D</abbr></th>
+                            <th><abbr title="Lost">L</abbr></th>
+                            <th><abbr title="Goals for">GF</abbr></th>
+                            <th><abbr title="Goals against">GA</abbr></th>
+                            <th><abbr title="Goal difference">GD</abbr></th>
+                            <th><abbr title="Points">Pts</abbr></th>
+                            <th>Qualification or relegation</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                            <th><abbr title="Position">Pos</abbr></th>
+                            <th>Team</th>
+                            <th><abbr title="Played">Pld</abbr></th>
+                            <th><abbr title="Won">W</abbr></th>
+                            <th><abbr title="Drawn">D</abbr></th>
+                            <th><abbr title="Lost">L</abbr></th>
+                            <th><abbr title="Goals for">GF</abbr></th>
+                            <th><abbr title="Goals against">GA</abbr></th>
+                            <th><abbr title="Goal difference">GD</abbr></th>
+                            <th><abbr title="Points">Pts</abbr></th>
+                            <th>Qualification or relegation</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                            <th>1</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Leicester_City_F.C." title="Leicester City F.C.">Leicester City</a> <strong>(C)</strong>
+                            </td>
+                            <td>38</td>
+                            <td>23</td>
+                            <td>12</td>
+                            <td>3</td>
+                            <td>68</td>
+                            <td>36</td>
+                            <td>+32</td>
+                            <td>81</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                            </tr>
+                            <tr>
+                            <th>2</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Arsenal_F.C." title="Arsenal F.C.">Arsenal</a></td>
+                            <td>38</td>
+                            <td>20</td>
+                            <td>11</td>
+                            <td>7</td>
+                            <td>65</td>
+                            <td>36</td>
+                            <td>+29</td>
+                            <td>71</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                            </tr>
+                            <tr>
+                            <th>3</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Tottenham_Hotspur_F.C." title="Tottenham Hotspur F.C.">Tottenham Hotspur</a></td>
+                            <td>38</td>
+                            <td>19</td>
+                            <td>13</td>
+                            <td>6</td>
+                            <td>69</td>
+                            <td>35</td>
+                            <td>+34</td>
+                            <td>70</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Group_stage" title="2016–17 UEFA Champions League">Champions League group stage</a></td>
+                            </tr>
+                            <tr class="is-selected">
+                            <th>4</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Manchester_City_F.C." title="Manchester City F.C.">Manchester City</a></td>
+                            <td>38</td>
+                            <td>19</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>71</td>
+                            <td>41</td>
+                            <td>+30</td>
+                            <td>66</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Champions_League#Play-off_round" title="2016–17 UEFA Champions League">Champions League play-off round</a></td>
+                            </tr>
+                            <tr>
+                            <th>5</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Manchester_United_F.C." title="Manchester United F.C.">Manchester United</a></td>
+                            <td>38</td>
+                            <td>19</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>49</td>
+                            <td>35</td>
+                            <td>+14</td>
+                            <td>66</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage" title="2016–17 UEFA Europa League">Europa League group stage</a></td>
+                            </tr>
+                            <tr>
+                            <th>6</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Southampton_F.C." title="Southampton F.C.">Southampton</a></td>
+                            <td>38</td>
+                            <td>18</td>
+                            <td>9</td>
+                            <td>11</td>
+                            <td>59</td>
+                            <td>41</td>
+                            <td>+18</td>
+                            <td>63</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Group_stage" title="2016–17 UEFA Europa League">Europa League group stage</a></td>
+                            </tr>
+                            <tr>
+                            <th>7</th>
+                            <td><a href="https://en.wikipedia.org/wiki/West_Ham_United_F.C." title="West Ham United F.C.">West Ham United</a></td>
+                            <td>38</td>
+                            <td>16</td>
+                            <td>14</td>
+                            <td>8</td>
+                            <td>65</td>
+                            <td>51</td>
+                            <td>+14</td>
+                            <td>62</td>
+                            <td>Qualification for the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_UEFA_Europa_League#Third_qualifying_round" title="2016–17 UEFA Europa League">Europa League third qualifying round</a></td>
+                            </tr>
+                            <tr>
+                            <th>8</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Liverpool_F.C." title="Liverpool F.C.">Liverpool</a></td>
+                            <td>38</td>
+                            <td>16</td>
+                            <td>12</td>
+                            <td>10</td>
+                            <td>63</td>
+                            <td>50</td>
+                            <td>+13</td>
+                            <td>60</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>9</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Stoke_City_F.C." title="Stoke City F.C.">Stoke City</a></td>
+                            <td>38</td>
+                            <td>14</td>
+                            <td>9</td>
+                            <td>15</td>
+                            <td>41</td>
+                            <td>55</td>
+                            <td>−14</td>
+                            <td>51</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>10</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Chelsea_F.C." title="Chelsea F.C.">Chelsea</a></td>
+                            <td>38</td>
+                            <td>12</td>
+                            <td>14</td>
+                            <td>12</td>
+                            <td>59</td>
+                            <td>53</td>
+                            <td>+6</td>
+                            <td>50</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>11</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Everton_F.C." title="Everton F.C.">Everton</a></td>
+                            <td>38</td>
+                            <td>11</td>
+                            <td>14</td>
+                            <td>13</td>
+                            <td>59</td>
+                            <td>55</td>
+                            <td>+4</td>
+                            <td>47</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>12</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Swansea_City_A.F.C." title="Swansea City A.F.C.">Swansea City</a></td>
+                            <td>38</td>
+                            <td>12</td>
+                            <td>11</td>
+                            <td>15</td>
+                            <td>42</td>
+                            <td>52</td>
+                            <td>−10</td>
+                            <td>47</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>13</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Watford_F.C." title="Watford F.C.">Watford</a></td>
+                            <td>38</td>
+                            <td>12</td>
+                            <td>9</td>
+                            <td>17</td>
+                            <td>40</td>
+                            <td>50</td>
+                            <td>−10</td>
+                            <td>45</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>14</th>
+                            <td><a href="https://en.wikipedia.org/wiki/West_Bromwich_Albion_F.C." title="West Bromwich Albion F.C.">West Bromwich Albion</a></td>
+                            <td>38</td>
+                            <td>10</td>
+                            <td>13</td>
+                            <td>15</td>
+                            <td>34</td>
+                            <td>48</td>
+                            <td>−14</td>
+                            <td>43</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>15</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Crystal_Palace_F.C." title="Crystal Palace F.C.">Crystal Palace</a></td>
+                            <td>38</td>
+                            <td>11</td>
+                            <td>9</td>
+                            <td>18</td>
+                            <td>39</td>
+                            <td>51</td>
+                            <td>−12</td>
+                            <td>42</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>16</th>
+                            <td><a href="https://en.wikipedia.org/wiki/A.F.C._Bournemouth" title="A.F.C. Bournemouth">AFC Bournemouth</a></td>
+                            <td>38</td>
+                            <td>11</td>
+                            <td>9</td>
+                            <td>18</td>
+                            <td>45</td>
+                            <td>67</td>
+                            <td>−22</td>
+                            <td>42</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>17</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Sunderland_A.F.C." title="Sunderland A.F.C.">Sunderland</a></td>
+                            <td>38</td>
+                            <td>9</td>
+                            <td>12</td>
+                            <td>17</td>
+                            <td>48</td>
+                            <td>62</td>
+                            <td>−14</td>
+                            <td>39</td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <th>18</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Newcastle_United_F.C." title="Newcastle United F.C.">Newcastle United</a> <strong>(R)</strong>
+                            </td>
+                            <td>38</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>19</td>
+                            <td>44</td>
+                            <td>65</td>
+                            <td>−21</td>
+                            <td>37</td>
+                            <td>Relegation to the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship" title="2016–17 Football League Championship">Football League Championship</a></td>
+                            </tr>
+                            <tr>
+                            <th>19</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Norwich_City_F.C." title="Norwich City F.C.">Norwich City</a> <strong>(R)</strong>
+                            </td>
+                            <td>38</td>
+                            <td>9</td>
+                            <td>7</td>
+                            <td>22</td>
+                            <td>39</td>
+                            <td>67</td>
+                            <td>−28</td>
+                            <td>34</td>
+                            <td>Relegation to the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship" title="2016–17 Football League Championship">Football League Championship</a></td>    </tr>
+                            <tr>
+                            <th>20</th>
+                            <td><a href="https://en.wikipedia.org/wiki/Aston_Villa_F.C." title="Aston Villa F.C.">Aston Villa</a> <strong>(R)</strong>
+                            </td>
+                            <td>38</td>
+                            <td>3</td>
+                            <td>8</td>
+                            <td>27</td>
+                            <td>27</td>
+                            <td>76</td>
+                            <td>−49</td>
+                            <td>17</td>
+                            <td>Relegation to the <a href="https://en.wikipedia.org/wiki/2016%E2%80%9317_Football_League_Championship" title="2016–17 Football League Championship">Football League Championship</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section="lists" tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Lists</h1>
+                        <p>Sometimes all you need to help make a concept clear is a simple <em>ordered</em> or <em>un-ordered</em> list:</p> 
+                    </div>
+                    <div class="content">
+                        <p class="has-text-weight-bold">Here is an <em>un-ordered</em> listing of some of my instructional design skills:</p>
+                        <ul>
+                            <li>Storytelling</li>
+                            <li>Building fantastic content for SMEs</li>
+                            <li>Writing technical and regulatory scripts</li>
+                            <li>Recording voice narrations</li>
+                            <li>JavaScript, CSS, HTML</li>
+                            <li>Web animations with Greensock API</li>
+                            <li>Advanced PowerPoint animations and repurposing</li>
+                            <li>Audio editing with Audacity</li>
+                            <li>Video editing with Screencast-O-Matic</li>
+                            <li>Online, blended and instructor led training project life cycle</li>
+                            <li>Accessibility compliance with WCAG 2.0</li>
+                            <li>xAPI integration with any LRS</li>
+                            <li>HTTP requests and database queries</li>
+                            <li>Web services</li>
+                            <li>JSON serialization and parsing</li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <p class="has-text-weight-bold">Here is an <em>ordered</em> listing of relevant experience I have:</p>
+                        <ol>
+                            <li>Instructional designer (3yrs)</li>
+                            <li>Teacher of English as a second language (4yrs)</li>
+                            <li>Adobe Connect administrator (1yr)</li>
+                            <li>Human Resource Manager (4yrs)</li>
+                            <li>Master of Education in Instructional Design and Technology</li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
         <script type="text/javascript" src="lib/main.js"></script>
