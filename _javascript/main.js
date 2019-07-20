@@ -1,5 +1,5 @@
 /***************************************
-* ei11 Array.from & forEach polyfills
+* ie11 Array.from & forEach polyfills
 **************************************/
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
@@ -78,11 +78,11 @@ if (!Array.from) {
         return A;
       };
     }());
-  }
+}
   
-  // Production steps of ECMA-262, Edition 5, 15.4.4.18
-  // Reference: http://es5.github.io/#x15.4.4.18
-  if (!Array.prototype.forEach) {
+// Production steps of ECMA-262, Edition 5, 15.4.4.18
+// Reference: http://es5.github.io/#x15.4.4.18
+if (!Array.prototype.forEach) {
   
     Array.prototype.forEach = function(callback/*, thisArg*/) {
   
@@ -142,7 +142,7 @@ if (!Array.from) {
       }
       // 8. return undefined.
     };
-  }
+}
 
 /***************************************
 * Side-menu hiding/unhiding sections
@@ -202,39 +202,21 @@ var vmQuiz = new Vue({
         // ARRAY OF QUESTION OBJECTS
         allQuestions: [
             {
-                question: "Which programs are exempt from collecting Income Eligibility Applications?",
-                choices: ["Only At-Risk Afterschool Centers and Emergency Shelters", "Only Emergency Shelters and Head Start Programs", "At-Risk Afterschool Centers, Emergency Shelters and Head Start Programs"],
+                question: "Bananas are highest in which of the following minerals?",
+                choices: ["Calcium", "Iron", "Potassium"],
                 explanation: "At-Risk Afterschool Centers, Emergency Shelters and Head Start Programs including Migrant Head Start and Early Head Start programs are exempt from collecting IEAs",
                 correct: 2
             },
             {
-                question: "For how long is a child IEA valid?",
-                choices: ["3 years plus the current year", "One year from the date that it was signed by the parent or guardian", "For as long as the child is continuously enrolled in the center"],
-                explanation: "Remember, child IEA is valid for one year from the date that it was signed by the parent or guardian",
-                correct: 1
-            },
-            {
-                question: "Which of the following is a consequence of missing or incomplete IEAs?",
-                choices: ["Your institution will be required to retake this training", "There will be reimbursement disallowances", "Your institution will be required to produce proper enrollment documentation within 30 days"],
-                explanation: "Missing or incomplete IEAs could cost the center money as reimbursement is disallowed for participants without proper IEAs",
-                correct: 1
-            },
-            {
-                question: "Which of the following describe information that must be recorded on IEA?",
-                choices: ["The family’s household income", "The signature of the Eligibility Official", "The participant’s ethnic and racial data and categorical classification"],
-                explanation: "The signature of the Eligibility Official is required",
-                correct: 1
-            },
-            {
-                question: "What is the best practice when a child withdraws from the CACFP?",
-                choices: ["Document the participant withdrawal date on the IEA", "Destroy the IEA to keep it confidential", "Send the IEA to the State agency explaining the withdrawal"],
-                explanation: "When a child withdraws, write the participant’s withdrawal date on the IEA then re-file the documentation",
+                question: "Which of the below quotes are part of The Declaration of Independence?",
+                choices: ["We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.", "You have been the veterans of creative suffering. Continue to work with the faith that unearned suffering is redemptive.", "The British Empire and the French Republic, linked together in their cause and in their need, will defend to the death their native soil, aiding each other like good comrades to the utmost of their strength."],
+                explanation: 'The Declaration began by stating these "self-evident" truths and went on to announced that the Thirteen Colonies at war with the Kingdom of Great Britain would regard themselves as thirteen independent sovereign states, no longer under British rule.',
                 correct: 0
             },
             {
-                question: "How long must IEAs be kept on file?",
-                choices: ["One year after the participant withdraws", "30 days after the participant withdraws", "3 years plus the current year"],
-                explanation: "IEAs must be maintained on file for 3 years plus the current year. Additionally, it is best practice to have a policy in place that specifies how the institution will retain the records for the required 3 years plus the current year",
+                question: "Babe Ruth is associated with which sport?",
+                choices: ["Tennis", "Competitive swimming", "Baseball"],
+                explanation: 'George Herman "Babe" Ruth Jr. was an American professional baseball player whose career in Major League Baseball spanned 22 seasons, from 1914 through 1935.',
                 correct: 2
             }
         ],
@@ -282,7 +264,7 @@ var vmQuiz = new Vue({
             
             // do something if end of quiz has been reached
             if (this.currentQuestion == this.allQuestions.length -1 ) {
-                this.totalScore >= (this.allQuestions.length*0.75) ? vmQuiz.hideCertBtn = false : vmQuiz.hideRetakeBtn = false;
+                this.totalScore == (this.allQuestions.length) ? vmQuiz.hideCertBtn = false : vmQuiz.hideRetakeBtn = false;
                 this.hideQuizContent = true;
                 return
             };

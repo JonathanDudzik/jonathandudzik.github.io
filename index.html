@@ -50,6 +50,7 @@
         <div class="columns is-marginless my-min-height-full">
             <div class="column is-inline-block is-2">
                 <nav role="navigation" aria-label="section navigation">
+    
                     <!-- <p class="menu-label">Data Visualization</p>
                         <ul class="menu-list">
                             <li><a href="#" class="" data-selector="">Pie Chart</a></li>
@@ -69,10 +70,16 @@
                             <li><a href="#" class="" data-selector="">Animations</a></li>
                         </ul>
                     -->
-                    <!-- <p class="menu-label">Quizzes</p> -->
-                    <!-- <p class="menu-label">Certificate</p> -->
+                    
+                    <p class="menu-label">Evaluation Tools</p>
+                    <ul class="menu-list">
+                        <li><a href="#" class="" data-selector="quiz">Quiz</a></li>
+                    </ul>
+                    <ul class="menu-list">
+                        <li><a href="#" class="" data-selector="cert">Certificate</a></li>
+                    </ul>
 
-                    <p class="menu-label">Basic Layouts</p>
+                    <p class="menu-label">Content Layout</p>
                     <ul class="menu-list">
                         <li><a href="#" class="" data-selector="images">Images</a></li>
                     </ul>
@@ -98,6 +105,73 @@
                                 <h3 class="has-text-dark">Navigation Instructions</h3>
                                 <p>So please browse my site full of elearing examples and let me know if you have any questions! Use the menu to the left to navigate through the <em>contents and examples</em> of my projects.</p> 
                                 
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section="quiz" tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Multiple Choice Quiz</h1>
+                        <p>There may be times when you will need to provide a quiz to your participants to <em>show</em> that they completed a certian part of a course or lesson. Before providing a certificate I usually create a quiz that will test comprehension. Here is an example of a short multiple choice quiz:</p> 
+                    </div>
+                    <div class="columns is-vcentered">
+                        <div class="column is-3 is-offset-1">
+                            <figure>
+                                <img src="./media/ready.png" alt="are you ready?">
+                            </figure>
+                        </div>
+                        <div class="column is-7 is-offset-1">
+                            <div id="multi-choice-quiz-vue">
+                                <div  id="quiz-content" v-bind:class="{ 'my-display-none': hideQuizContent }">
+                                    <h1 class="title">Question: {{ currentQuestion + 1 }}</h1>
+                                    <h2 class="subtitle" id="questionText">{{ questionTxt }}</h2>
+                                    <form class="field" id="quizForm">
+                                        <div class="control">
+                                            <label class="radio box" for="option-one">
+                                                <input id="option-one" type="radio" name="answer" value="0">
+                                                <span class="subtitle" id="choice1">{{ choice1 }}</span>
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <div class="control">                      
+                                            <label class="radio box" for="option-two">
+                                                <input id="option-two" type="radio" name="answer" value="1">
+                                                <span class="subtitle" id="choice2">{{ choice2 }}</span>
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <div class="control">
+                                            <label class="radio box" for="option-three">
+                                                <input id="option-three" type="radio" name="answer" value="2">
+                                                <span class="subtitle" id="choice3">{{ choice3 }}</span>
+                                            </label>
+                                        </div>
+                                    </form>
+                                    <br>
+                                    <div class="control">
+                                        <button class="button is-large" @click="quizSubmit()">Submit answer</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div v-bind:class="{ 'my-display-none': hideRetakeBtn }">
+                                        <p class="box is-size-3">"Your score is {{ totalScore }} out of {{ allQuestions.length }}. You must get all questions right in order to download the certificate. Please click the button below to retake the quiz.</p>
+                                        <button class="button is-large" @click="reloadQuiz()">Restart Quiz</button>
+                                    </div>
+                                    <div v-bind:class="{ 'my-display-none': hideCertBtn }">
+                                        <p class="box is-size-3">"Your score is {{ totalScore }} of {{ allQuestions.length }}. You may now download your certificate.</p>
+                                        <a class="has-text-grey-darker" href="https://ncnutrition.adobeconnect.com/pclifeqax31w/" target="_blank"><button class="button is-large" >Download Certificate</button></a>
+                                    </div>
+                                </div>
+                                <div class="modal" v-bind:class="{ 'is-active': showModalClass }">
+                                    <div class="modal-background"></div>
+                                    <div class="modal-content">
+                                        <div class="content notification is-large">
+                                            <h3 class="has-text-white">{{ quizModalHeading }}</h2>
+                                            <p class="has-text-white">{{ quizModalBody }}</p>
+                                        </div>
+                                    </div>
+                                    <button class="modal-close has-background-primary is-large" aria-label="close" @click="showModalClass = false">Close</button>
+                                </div>
                             </div>
                         </div>
                     </div>
