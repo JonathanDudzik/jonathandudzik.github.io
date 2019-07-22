@@ -10,3 +10,4 @@
 # make audio stop playing on screen change
 # Make twine game
 # make canvas elements responsive
+# make changes to canvas slowly show
