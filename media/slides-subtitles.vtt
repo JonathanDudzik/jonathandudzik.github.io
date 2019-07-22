@@ -1,0 +1,274 @@
+﻿WEBVTT
+
+1
+00:00:03.740 --> 00:00:05.020
+This is a statement.
+
+2
+00:00:05.440 --> 00:00:07.340
+Statements are the evidence
+
+3
+00:00:07.420 --> 00:00:09.620
+for any sort of experience or event
+
+4
+00:00:09.880 --> 00:00:12.400
+which is to be tracked with the xAPI.
+
+5
+00:00:13.060 --> 00:00:15.160
+They contain all the information
+
+6
+00:00:15.260 --> 00:00:16.700
+on who our learner is
+
+7
+00:00:17.080 --> 00:00:19.420
+and what activities our learner has done.
+
+8
+00:00:20.380 --> 00:00:22.900
+But, before statements can do all that,
+
+9
+00:00:23.240 --> 00:00:24.840
+they have to be created.
+
+10
+00:00:28.480 --> 00:00:32.140
+Statements are actually 
+made up of multiple data types
+
+11
+00:00:32.360 --> 00:00:36.100
+combined together to make a single data object.
+
+12
+00:00:36.540 --> 00:00:40.120
+At a minimum, our 
+statement must include the actor,
+
+13
+00:00:40.420 --> 00:00:42.560
+the verb, and the object.
+
+14
+00:00:43.100 --> 00:00:46.860
+While Statements follow a 
+machine readable JSON format,
+
+15
+00:00:47.400 --> 00:00:51.800
+they can also easily be 
+described using natural language.
+
+16
+00:00:56.040 --> 00:00:58.620
+One of the most important responsibilities
+
+17
+00:00:58.620 --> 00:01:01.820
+of an instructional designer working with xAPI
+
+18
+00:01:02.160 --> 00:01:05.440
+is to know how to 
+develop statements that provide data
+
+19
+00:01:05.700 --> 00:01:07.560
+that is formatted correctly,
+
+20
+00:01:07.740 --> 00:01:09.220
+well organized
+
+21
+00:01:09.220 --> 00:01:12.700
+and computed in the most efficient way possible.
+
+22
+00:01:16.560 --> 00:01:22.060
+Once created, every 
+statement can then be tied to an activity.
+
+23
+00:01:24.040 --> 00:01:28.580
+An activity is any event, 
+content, or interaction
+
+24
+00:01:28.700 --> 00:01:31.180
+found within a learning experience.
+
+25
+00:01:31.640 --> 00:01:35.980
+Activities can be tracked 
+through practically any means imaginable.
+
+26
+00:01:36.240 --> 00:01:38.400
+They can be clicked, triggered,
+
+27
+00:01:38.400 --> 00:01:40.140
+played, started,
+
+28
+00:01:40.140 --> 00:01:42.140
+paused, sent, selected,
+
+29
+00:01:42.140 --> 00:01:44.140
+checked, completed,
+
+30
+00:01:44.140 --> 00:01:46.140
+watched, recorded,
+
+31
+00:01:46.140 --> 00:01:48.140
+stopped, etcetera.
+
+32
+00:01:50.400 --> 00:01:52.080
+Examples of events
+
+33
+00:01:52.080 --> 00:01:54.080
+could include visiting a web page,
+
+34
+00:01:54.400 --> 00:01:56.820
+answering a question in a classroom,
+
+35
+00:01:56.820 --> 00:01:59.160
+posting something on social media,
+
+36
+00:01:59.160 --> 00:02:02.680
+or collecting a 
+specimen for a Biology class.
+
+37
+00:02:04.780 --> 00:02:06.760
+The point is that events
+
+38
+00:02:06.760 --> 00:02:08.760
+can be anything that a learner
+
+39
+00:02:08.760 --> 00:02:10.980
+interacts with or does.
+
+40
+00:02:11.180 --> 00:02:14.400
+And, often, any given educational lesson
+
+41
+00:02:14.400 --> 00:02:16.140
+or training module
+
+42
+00:02:16.140 --> 00:02:18.820
+will include more than one event,
+
+43
+00:02:18.820 --> 00:02:20.820
+maybe even many events.
+
+44
+00:02:21.240 --> 00:02:24.020
+Instructional Designers are essential
+
+45
+00:02:24.020 --> 00:02:27.280
+in planning and developing events,
+
+46
+00:02:27.540 --> 00:02:30.840
+including when where, and how
+
+47
+00:02:30.840 --> 00:02:32.840
+events will be triggered.
+
+48
+00:02:34.300 --> 00:02:36.160
+The Learning Records Store,
+
+49
+00:02:36.160 --> 00:02:39.580
+or LRS, is charged with receiving
+
+50
+00:02:39.580 --> 00:02:42.920
+and storing xAPI statements
+
+51
+00:02:42.920 --> 00:02:46.060
+and then fetching queried statements.
+
+52
+00:02:50.060 --> 00:02:54.640
+Next the LRS will deliver 
+the statements to the end user
+
+53
+00:02:54.900 --> 00:02:57.560
+in the 
+correct format for reporting.
+
+54
+00:03:02.300 --> 00:03:05.600
+Instructional Designers 
+should know how to send
+
+55
+00:03:05.600 --> 00:03:08.380
+and retrieve xAPI statements.
+
+56
+00:03:08.640 --> 00:03:11.680
+But more importantly, Instructional Designers
+
+57
+00:03:11.680 --> 00:03:14.080
+must know how to analyze the data
+
+58
+00:03:14.220 --> 00:03:16.840
+that is retrieved from the LRS,
+
+59
+00:03:17.180 --> 00:03:19.640
+organize that data is a useful way,
+
+60
+00:03:19.880 --> 00:03:21.680
+and finally format it
+
+61
+00:03:21.680 --> 00:03:24.880
+so that it can be understood by the end user.
+
+62
+00:03:25.700 --> 00:03:27.980
+There are open-source LRSs
+
+63
+00:03:28.260 --> 00:03:29.980
+as well as paid versions
+
+64
+00:03:30.280 --> 00:03:34.320
+and LRS can be used as a standalone database
+
+65
+00:03:34.860 --> 00:03:36.860
+or as part of an LMS.
+

@@ -1,150 +1,4 @@
 /***************************************
-* ie11 Array.from & forEach polyfills
-**************************************/
-// Production steps of ECMA-262, Edition 6, 22.1.2.1
-if (!Array.from) {
-    Array.from = (function () {
-      var toStr = Object.prototype.toString;
-      var isCallable = function (fn) {
-        return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
-      };
-      var toInteger = function (value) {
-        var number = Number(value);
-        if (isNaN(number)) { return 0; }
-        if (number === 0 || !isFinite(number)) { return number; }
-        return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
-      };
-      var maxSafeInteger = Math.pow(2, 53) - 1;
-      var toLength = function (value) {
-        var len = toInteger(value);
-        return Math.min(Math.max(len, 0), maxSafeInteger);
-      };
-  
-      // The length property of the from method is 1.
-      return function from(arrayLike/*, mapFn, thisArg */) {
-        // 1. Let C be the this value.
-        var C = this;
-  
-        // 2. Let items be ToObject(arrayLike).
-        var items = Object(arrayLike);
-  
-        // 3. ReturnIfAbrupt(items).
-        if (arrayLike == null) {
-          throw new TypeError('Array.from requires an array-like object - not null or undefined');
-        }
-  
-        // 4. If mapfn is undefined, then let mapping be false.
-        var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
-        var T;
-        if (typeof mapFn !== 'undefined') {
-          // 5. else
-          // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
-          if (!isCallable(mapFn)) {
-            throw new TypeError('Array.from: when provided, the second argument must be a function');
-          }
-  
-          // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
-          if (arguments.length > 2) {
-            T = arguments[2];
-          }
-        }
-  
-        // 10. Let lenValue be Get(items, "length").
-        // 11. Let len be ToLength(lenValue).
-        var len = toLength(items.length);
-  
-        // 13. If IsConstructor(C) is true, then
-        // 13. a. Let A be the result of calling the [[Construct]] internal method 
-        // of C with an argument list containing the single item len.
-        // 14. a. Else, Let A be ArrayCreate(len).
-        var A = isCallable(C) ? Object(new C(len)) : new Array(len);
-  
-        // 16. Let k be 0.
-        var k = 0;
-        // 17. Repeat, while k < len… (also steps a - h)
-        var kValue;
-        while (k < len) {
-          kValue = items[k];
-          if (mapFn) {
-            A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
-          } else {
-            A[k] = kValue;
-          }
-          k += 1;
-        }
-        // 18. Let putStatus be Put(A, "length", len, true).
-        A.length = len;
-        // 20. Return A.
-        return A;
-      };
-    }());
-}
-  
-// Production steps of ECMA-262, Edition 5, 15.4.4.18
-// Reference: http://es5.github.io/#x15.4.4.18
-if (!Array.prototype.forEach) {
-  
-    Array.prototype.forEach = function(callback/*, thisArg*/) {
-  
-      var T, k;
-  
-      if (this == null) {
-        throw new TypeError('this is null or not defined');
-      }
-  
-      // 1. Let O be the result of calling toObject() passing the
-      // |this| value as the argument.
-      var O = Object(this);
-  
-      // 2. Let lenValue be the result of calling the Get() internal
-      // method of O with the argument "length".
-      // 3. Let len be toUint32(lenValue).
-      var len = O.length >>> 0;
-  
-      // 4. If isCallable(callback) is false, throw a TypeError exception. 
-      // See: http://es5.github.com/#x9.11
-      if (typeof callback !== 'function') {
-        throw new TypeError(callback + ' is not a function');
-      }
-  
-      // 5. If thisArg was supplied, let T be thisArg; else let
-      // T be undefined.
-      if (arguments.length > 1) {
-        T = arguments[1];
-      }
-  
-      // 6. Let k be 0.
-      k = 0;
-  
-      // 7. Repeat while k < len.
-      while (k < len) {
-  
-        var kValue;
-  
-        // a. Let Pk be ToString(k).
-        //    This is implicit for LHS operands of the in operator.
-        // b. Let kPresent be the result of calling the HasProperty
-        //    internal method of O with argument Pk.
-        //    This step can be combined with c.
-        // c. If kPresent is true, then
-        if (k in O) {
-  
-          // i. Let kValue be the result of calling the Get internal
-          // method of O with argument Pk.
-          kValue = O[k];
-  
-          // ii. Call the Call internal method of callback with T as
-          // the this value and argument list containing kValue, k, and O.
-          callback.call(T, kValue, k, O);
-        }
-        // d. Increase k by 1.
-        k++;
-      }
-      // 8. return undefined.
-    };
-}
-
-/***************************************
 * Side-menu hiding/unhiding sections
 **************************************/
 // get all elements as an array that will act as a selector
@@ -181,6 +35,174 @@ function toggleSections(e) {
 
     // move focus to the first paragraph of the unhidden section
     section.focus();
+}
+
+/***************************************
+ * Pie chart Logic
+ **************************************/
+function PieChart(canvasId, data) {
+  // setup data and canvas
+  this.data = data;
+  this.canvas = document.getElementById(canvasId);
+  this.context = this.canvas.getContext("2d");
+
+  // changing canvas standard styles
+  this.context.textBaseline = "middle";
+  this.context.font = 'bold 12pt serif';
+  this.context.strokeStyle = "black";
+
+  // sizing and locating created objects
+  this.canvasPadding = 15;
+  this.legendWidth = this.getLegendWidth();
+  this.pieAreaX = this.canvas.width - this.legendWidth;
+  this.pieAreaY = this.canvas.height
+  this.pieLocationX = this.pieAreaX / 2;
+  this.pieLocationY = this.pieAreaY / 2;
+  this.pieRadius = Math.min(this.pieAreaX, this.pieAreaY / 2 - this.canvasPadding - 5);
+
+  // drawing the things
+  this.drawPieBorder();
+  this.drawLegend();
+  this.drawPieSlice();
+}
+
+PieChart.prototype.getLegendWidth = function() {
+  let { context, data } = this;
+  let labelWidth = 0;
+  data.forEach(function(property) {
+    labelWidth = Math.max(labelWidth, context.measureText(property.label).width);
+  });
+  return labelWidth + this.canvasPadding * 4
+}
+
+PieChart.prototype.drawPieBorder = function() {
+  let { context } = this;
+  context.save();
+  context.beginPath();
+  context.fillStyle = "white";
+  context.borderSize = 5;
+  context.shadowColor = "#777";
+  context.shadowBlur = 10;
+  context.shadowOffsetX = 1;
+  context.shadowOffsetY = 2;
+  context.arc(this.pieLocationX, this.pieLocationY, this.pieRadius + context.borderSize, 0, Math.PI * 2);
+  context.fill();
+  context.closePath();
+  context.restore();
+}
+
+PieChart.prototype.drawPieSlice = function() {
+  let { context, data } = this;
+  let totalValue = this.getTotalValue()
+  let sliceStartAngle = 0;
+  context.save();
+
+	data.forEach((property) => {
+	    let sliceAngle = 2 * Math.PI * property.value / totalValue;
+	    let sliceEndAngle = sliceStartAngle + sliceAngle;
+      context.fillStyle = property.color;
+	    context.beginPath();
+	    context.moveTo(this.pieLocationX, this.pieLocationY);
+	    context.arc(this.pieLocationX, this.pieLocationY, this.pieRadius, sliceStartAngle, sliceEndAngle, false);
+	    context.fill();
+	    context.stroke();
+	    context.closePath();
+	    sliceStartAngle = sliceEndAngle
+	  });
+	  	
+       
+  context.restore();
+}
+
+PieChart.prototype.getTotalValue = function() {
+	let { data } = this;
+  let initialValue = 0;
+  let totalValue = data.reduce((accumulator, currentValue) => accumulator + currentValue.value , initialValue);
+  return totalValue;
+}
+
+PieChart.prototype.drawLegend = function() {
+  let { context, data } = this;
+  context.save();
+  data.forEach(property => {
+    context.beginPath();
+    context.rect(this.pieAreaX, this.canvasPadding, 20, 20);
+    context.closePath();
+    context.fillStyle = property.color;
+    context.fill();
+    context.stroke();
+    context.fillText(property.label, this.pieAreaX + 30, this.canvasPadding + 12);
+		this.canvasPadding += 30;
+  }); 
+  context.restore();
+}
+
+window.onload = function() {
+  const firstData = [{
+    label: "JavaScript",
+    value: 20,
+    color: "red"
+  }, 
+  {
+    label: "HTML",
+    value: 20,
+    color: "blue"
+  }, 
+  {
+    label: "CSS",
+    value: 20,
+    color: "green"
+  }, 
+  {
+    label: "Audio",
+    value: 10,
+    color: "orange"
+  }, 
+  {
+    label: "Captions",
+    value: 10,
+    color: "yellow"
+  }, 
+  {
+    label: "Video",
+    value: 10,
+    color: "violet"
+  }];
+  
+  const secondData = [{
+    label: "Work Ethic",
+    value: 20,
+    color: "green"
+  }, 
+  {
+    label: "Timelyness",
+    value: 20,
+    color: "yellow"
+  }, 
+  {
+    label: "CSS",
+    value: 20,
+    color: "green"
+  }, 
+  {
+    label: "collaboration",
+    value: 60,
+    color: "orange"
+  }, 
+  {
+    label: "teamwork",
+    value: 10,
+    color: "red"
+  }, 
+  {
+    label: "Video",
+    value: 10,
+    color: "brown"
+  }];
+  
+  const data = firstData;
+
+  const pieChart = new PieChart("myCanvas", data);
 }
 
 /***************************************
@@ -286,3 +308,29 @@ var vmQuiz = new Vue({
         }
     }
 });
+
+/***************************************
+ * Certificate Date Logic
+ **************************************/
+const app = new Vue({
+  el: '#app',
+  data: {
+      currentDate: ''
+  },
+
+  methods: {
+      returnDate: function() {
+          const fullDate = new Date();
+          const currentDay = fullDate.getDate(); 
+          const currentMonth = fullDate.getMonth(); 
+          const currentYear = fullDate.getFullYear(); 
+
+          this.currentDate = (currentMonth + 1) + "/" + currentDay + "/" + currentYear;
+
+          //BROKE IN EI11 this.currentDate = `${currentMonth + 1}/${currentDay}/${currentYear}`;
+          
+      } 
+  }
+})
+// run the above vue script that prints the current date
+app.returnDate();

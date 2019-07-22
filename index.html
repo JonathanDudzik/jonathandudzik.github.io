@@ -8,7 +8,7 @@
         <title>Training Portal | v2</title>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="./css/main.css">
     </head>
     <body class="has-navbar-fixed-top">
         <noscript>
@@ -47,67 +47,65 @@
                 </div>
             </div>
         </nav>
-        <div class="columns is-marginless my-min-height-full">
-            <div class="column is-inline-block is-2">
+        <div class="columns is-marginless my-min-height">
+            <div class="column is-inline-block is-2 my-padding-top-small" style="background-color: #f8f8f8;">
                 <nav role="navigation" aria-label="section navigation">
-    
-                    <!-- <p class="menu-label">Data Visualization</p>
-                        <ul class="menu-list">
-                            <li><a href="#" class="" data-selector="">Pie Chart</a></li>
-                        </ul> 
-                        <ul class="menu-list">
-                            <li><a href="#" class="" data-selector="">Clock</a></li>
-                        </ul> 
-                    -->
-                    <!-- <p class="menu-label">Audiovisuals</p> 
-                        <ul class="menu-list">
-                            <li><a href="#" class="" data-selector="">Voiceovers</a></li>
-                        </ul> 
-                        <ul class="menu-list">
-                            <li><a href="#" class="" data-selector="">Screencasts</a></li>
-                        </ul>
-                        <ul class="menu-list">
-                            <li><a href="#" class="" data-selector="">Animations</a></li>
-                        </ul>
-                    -->
-                    
-                    <p class="menu-label">Evaluation Tools</p>
                     <ul class="menu-list">
+                        <li><a href="#" class="is-active" data-selector="welcome">Welcome</a></li>
+                        <li><a href="#" class="" data-selector="pieChart">Pie Chart</a></li> 
+                        <li><a href="#" class="" data-selector="screencast">Screencasts</a></li>
+                        <li><a href="#" class="" data-selector="slides">Slides</a></li>
                         <li><a href="#" class="" data-selector="quiz">Quiz</a></li>
-                    </ul>
-                    <ul class="menu-list">
                         <li><a href="#" class="" data-selector="cert">Certificate</a></li>
-                    </ul>
-
-                    <p class="menu-label">Content Layout</p>
-                    <ul class="menu-list">
                         <li><a href="#" class="" data-selector="images">Images</a></li>
-                    </ul>
-                    <ul class="menu-list">
                         <li><a href="#" class="" data-selector="tables">Tables</a></li>
-                    </ul>
-                    <ul class="menu-list">
                         <li><a href="#" class="" data-selector="lists">Lists</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="column is-10">
-                <section class="section my-invisible-outline" data-section="home" tabindex="-1">
+                <section class="section my-invisible-outline" data-section="welcome" tabindex="-1">
                     <div class="notification">
-                        <h1 class="title is-size-4-mobile is-size-1">Sample eLearning Projects</h1>
-                        <h2 class="subtitle">Jonathan Wesley Dudzik</h2>
+                        <h1 class="title is-size-4-mobile is-size-1 has-text-white">Sample eLearning Projects</h1>
+                        <h2 class="subtitle has-text-white">Jonathan Wesley Dudzik</h2>
                     </div>
-                    <div class="columns">
-                        <div class="column is-8">
-                            <div class="content is-large is-padding-2-top"> 
-                                <p>I am an Instructional Designer and Web Developer out of Raleigh, NC. I have been developing course content over the past four years on platforms like WordPress, Moodle, AWS, and Adobe Experience Cloud. I work for the North Carolina Department of Health and Human Services as their Training Development Specialist. I was also the Mobile app developer for the 2019 IEEE ICICLE Conference on Learning Engineering</p>
-                                <p>I build new eLearning courses or reengineer pre-existing ones as responsive HTML5 applications that are deployable on any LMS, website or cloud platform.</p>
-                                <h3 class="has-text-dark">Navigation Instructions</h3>
-                                <p>So please browse my site full of elearing examples and let me know if you have any questions! Use the menu to the left to navigate through the <em>contents and examples</em> of my projects.</p> 
-                                
-                            </div>
-                        </div>
+                    <div class="content is-large is-padding-2-top"> 
+                        <h3 class="has-text-dark">Welcome!</h3>
+                        <p>I am an Instructional Designer and Web Developer out of Raleigh, NC. I have been developing course content over the past four years on platforms like WordPress, Moodle, AWS, and Adobe Experience Cloud. I work for the North Carolina Department of Health and Human Services as their Training Development Specialist. I was also the Mobile app developer for the 2019 IEEE ICICLE Conference on Learning Engineering.</p>
+                        <h3 class="has-text-dark">Navigation Instructions</h3>
+                        <p>So please browse my site full of elearing examples and let me know if you have any questions! Use the menu to the left to navigate through the <em>contents and examples</em> of my projects.</p> 
                     </div>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section='pieChart' tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Intereactive Pie Chart</h1>
+                        <p>All about my pie chart...</p> 
+                    </div>
+                    <div class="notification">
+                        <canvas id="myCanvas" width="600" height="300"></canvas>
+                    </div> 
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section='slides' tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Slides</h1>
+                        <p>Slides are many things to many people, one thing that they are not is more than seven lines of text, irrevelant images. One big error I often see is that people estimate the size of a presentation (or eLearning course) by the amount of slides present. However, the real test is how many words there are.</p> 
+                    </div>
+                    <div class="notification content has-text-centered">
+                        <video class="my-max-height" src="./media/slides-compressed.mp4" controls>
+                            <track kind="subtitles" src="slides-subtitles.vtt" srclang="en" label="English">
+                        </video>
+                    </div> 
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section='screencast' tabindex="-1">
+                    <div class="content is-large">
+                        <h1>Screencasts</h1>
+                        <p>In creating screencasts, it is best to always make Closed Captions available to the viewer and make sure that the script would be coherent even if the viewer was unable to see the video. Videos that say things like "click here" are annoying to someone listening to only the audio. It is better to say, for example, "click the "login" buttom at the top right of the screen."</p> 
+                    </div>
+                    <div class="notification content has-text-centered">
+                        <video class="my-max-height" src="./media/screencast-compressed.mp4" controls>
+                            <track kind="captions" src="./media/screencast-subtitles.vtt" srclang="en" label="English">
+                        </video>
+                    </div> 
                 </section>
                 <section class="section my-invisible-outline my-display-none" data-section="quiz" tabindex="-1">
                     <div class="content is-large">
@@ -174,6 +172,26 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <section class="section my-invisible-outline my-display-none" data-section="cert" tabindex="-1">
+                    <div class="cert-body">
+                        <figure>
+                            <img src="./media/cert-seal.png" class="cert-my-style">
+                        </figure>
+                        <p class="abs-content abs-txt" style="left: 10%; top: 28%; width: 80%; font-size: 2vw;"><strong>Learning Company Incorporated</strong></p>
+                        <p class="abs-content" style="left: 10%; top: 33%; width: 80%; font-size: 2vw;">Division of Adult Education Services Branch</p>
+                        <p class="abs-content" style="left: 10%; top: 42%; width: 80%; font-size: 2vw;">Presents this Certificate to</p>
+                        <img class="name-line-position" src="./media/name-line.png" alt="line for printing name">
+                        <p class="abs-content" style="left: 10%; top: 60%; width: 80%; font-size: 2vw;">for the completion of the eLearning Portfolio Site's</p>
+                
+                        <p class="abs-content" style="left: 10%; top: 70%; width: 80%; font-size: 2.5vw;"><strong>Multiple Choice Quiz</strong></p>
+                
+                        <p id="app" class="abs-content" style="right: 10%; top: 90%; width: 80%; text-align: left; font-size: 2vw;"><strong>DATE: {{ currentDate }}</strong></p>
+                        <img class="signature-position" src="./media/signature.png" alt="signature of state official">
+                        <p class="abs-content txt-sm" style="right: 5%; top: 90%; width: 30%; text-align: left; font-size: 1vw;">Jonathan Wesley Dudzik, M.Ed.
+                        <p class="abs-content txt-sm" style="right: 5%; top: 93%; width: 30%; text-align: left; font-size: 1vw;">Training and Development Specialist</p>
+                        <button id="printBtn" class="button abs-content" style="right: 1%; top: 1%; width: 30%; text-align: center; font-size: 2vw;">PRINT CERTIFICATE</button>
                     </div>
                 </section>
                 <section class="section my-invisible-outline my-display-none" data-section="images" tabindex="-1">
@@ -557,6 +575,6 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
-        <script type="text/javascript" src="lib/main.js"></script>
+        <script type="text/javascript" src="./lib/main.js"></script>
     </body>
 </html>    

@@ -10,20 +10,22 @@ $family-secondary: 'Open Sans Condensed', sans-serif;
 // Setting local color scheme
 $white: #fff;
 $black: #000;
-$accent: #F7CB2D;
-$dark: #071330;
-$mid: #122E76;
-$light: #A2C4E0;
+$grey: #F8F8F8;
+$accent: #D9B310;
+$dark: #0B3C5D;
+$mid: #328CC1;
+$light: #328CC1;
 
 // // Bulma menu variables
 $menu-label-color: $black;
 $menu-item-active-background-color: $accent;
 $menu-item-active-color: $black;
+$menu-item-hover-color: $white;
 $menu-item-hover-background-color: $light;
 
 // Bulma navbar variables
 $navbar-height: 5rem;
-$navbar-background-color: $mid;
+$navbar-background-color: $dark;
 $navbar-item-hover-background-color: $mid;
 
 
@@ -68,12 +70,20 @@ START rules that will come AFTER Bulma's variables
     padding-top: 4rem;
 }
 
+.my-padding-top-small {
+    padding-top: 2rem;
+}
+
 .my-padding-left-xsmall {
     padding-left: 1rem;
 }
 
-.my-min-height-full {
+.my-min-height {
     min-height: 90vh;
+}
+
+.my-max-height {
+    max-height: 80vh;
 }
 
 // Screen reader function focuses on Sections but shouldn't show border
@@ -113,5 +123,52 @@ START rules that will come AFTER Bulma's variables
 
     .my-menu-width-desktop {
         width: 18%;
+    }
+}
+
+// Certificate Styles
+.cert-body {
+    background-color: #fffaf7;
+    position: relative;
+    width: 70vw;
+    height: 50vw;
+    border: thick double black;
+    text-align: center;
+}
+
+.signature-position {
+    position: absolute;
+    display: block;
+    width: 40%;
+    right: 2%; 
+    top: 80%;
+}
+
+.name-line-position {
+    position: absolute;
+    display: block;
+    width: 60%;
+    right: 20%; 
+    top: 58%;
+}
+
+.cert-my-style {
+    position: absolute;
+    display: block;
+    right: 33%;
+    top: 2%;
+    transform: translateX(-50%);
+    width: 12vw;
+    height: 12vw;
+}
+
+.abs-content {
+    position: absolute;
+    display: block;
+}
+
+@media print {
+    #printBtn {
+        display: none;
     }
 }
