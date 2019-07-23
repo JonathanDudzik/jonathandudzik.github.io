@@ -109,8 +109,7 @@ PieChart.prototype.drawPieSlice = function() {
 	    context.closePath();
 	    sliceStartAngle = sliceEndAngle
 	  });
-	  	
-       
+	
   context.restore();
 }
 
@@ -138,7 +137,7 @@ PieChart.prototype.drawLegend = function() {
 }
 
 window.onload = function() {
-  const firstData = [{
+  const data = [{
     label: "JavaScript",
     value: 20,
     color: "red"
@@ -168,42 +167,21 @@ window.onload = function() {
     value: 10,
     color: "violet"
   }];
-  
-  const secondData = [{
-    label: "Work Ethic",
-    value: 20,
-    color: "green"
-  }, 
-  {
-    label: "Timelyness",
-    value: 20,
-    color: "yellow"
-  }, 
-  {
-    label: "CSS",
-    value: 20,
-    color: "green"
-  }, 
-  {
-    label: "collaboration",
-    value: 60,
-    color: "orange"
-  }, 
-  {
-    label: "teamwork",
-    value: 10,
-    color: "red"
-  }, 
-  {
-    label: "Video",
-    value: 10,
-    color: "brown"
-  }];
-  
-  const data = firstData;
 
   const pieChart = new PieChart("myCanvas", data);
+  
+  data.forEach(property => {
+    TweenMax.to(property, 3, {value: 15});
+    TweenMax.ticker.addEventListener("tick", function() {
+      pieChart.drawPieSlice();
+    });
+  });
+
+  document.getElementById("testBtn").addEventListener("click", function() {
+    console.log(data[0].value);
+  });
 }
+
 
 /***************************************
  * Quiz Logic
