@@ -48,7 +48,7 @@ function PieChart(canvasId, data) {
 
   // changing canvas standard styles
   this.context.textBaseline = "middle";
-  this.context.font = 'bold 12pt serif';
+  this.context.font = '28pt Times';
   this.context.strokeStyle = "black";
 
   // sizing and locating created objects
@@ -139,47 +139,72 @@ PieChart.prototype.drawLegend = function() {
 window.onload = function() {
   const data = [{
     label: "JavaScript",
+    value: 15,
+    color: "#754607"
+  }, 
+  {
+    label: "PowerPoint",
+    value: 40,
+    color: "#CC494E"
+  }, 
+  {
+    label: "Cloud storage",
+    value: 15,
+    color: "#A61C90"
+  }, 
+  {
+    label: "xAPI",
+    value: 5,
+    color: "#F56127"
+  },
+  {
+    label: "EPUB texts",
+    value: 5,
+    color: "#070E69"
+  },
+  {
+    label: "SCORM",
     value: 20,
-    color: "red"
-  }, 
-  {
-    label: "HTML",
-    value: 20,
-    color: "blue"
-  }, 
-  {
-    label: "CSS",
-    value: 20,
-    color: "green"
-  }, 
-  {
-    label: "Audio",
-    value: 10,
-    color: "orange"
-  }, 
-  {
-    label: "Captions",
-    value: 10,
-    color: "yellow"
-  }, 
-  {
-    label: "Video",
-    value: 10,
-    color: "violet"
+    color: "#07695B"
   }];
 
   const pieChart = new PieChart("myCanvas", data);
-  
-  data.forEach(property => {
-    TweenMax.to(property, 3, {value: 15});
-    TweenMax.ticker.addEventListener("tick", function() {
-      pieChart.drawPieSlice();
-    });
+  const btnFoward = document.getElementById("forward");
+  const btnReverse = document.getElementById("reverse");
+
+  btnFoward.addEventListener ("click", function () {
+    TweenMax.to(data[0], 4, {value: 25});
+    TweenMax.to(data[1], 4, {value: 5});
+    TweenMax.to(data[2], 4, {value: 20});
+    TweenMax.to(data[3], 4, {value: 20});
+    TweenMax.to(data[4], 4, {value: 15});
+    TweenMax.to(data[5], 4, {value: 1});
   });
 
-  document.getElementById("testBtn").addEventListener("click", function() {
-    console.log(data[0].value);
+  btnReverse.addEventListener ("click", function () {
+    TweenMax.to(data[0], 4, {value: 15});
+    TweenMax.to(data[1], 4, {value: 40});
+    TweenMax.to(data[2], 4, {value: 15});
+    TweenMax.to(data[3], 4, {value: 5});
+    TweenMax.to(data[4], 4, {value: 5});
+    TweenMax.to(data[5], 4, {value: 20});
   });
+
+
+  TweenMax.ticker.addEventListener("tick", redrawCanvas);
+  
+  function redrawCanvas() {
+    pieChart.drawPieSlice();
+    if(data[0].value == 40) {
+      TweenMax.ticker.removeEventListener("tick", redrawCanvas);
+    };
+  };
+  
+
+  // data.forEach(property => {
+  //   var newData = secondData[0].value
+  //   TweenMax.to(property, 15, {value: () => newData});
+  // });
 }
 
 

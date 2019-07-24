@@ -11,14 +11,19 @@ $family-secondary: 'Open Sans Condensed', sans-serif;
 $white: #fff;
 $black: #000;
 $grey: #F8F8F8;
-$accent: #D9B310;
+$accentOne: #D9B310;
+$accentTwo: #CC494E;
+$accentThree:#A61C90;
+$accentFour:#26DFD4;
+$accentFive:#F56127;
+$accentFive:#754607;
 $dark: #0B3C5D;
 $mid: #328CC1;
 $light: #328CC1;
 
 // // Bulma menu variables
 $menu-label-color: $black;
-$menu-item-active-background-color: $accent;
+$menu-item-active-background-color: $accentOne;
 $menu-item-active-color: $black;
 $menu-item-hover-color: $white;
 $menu-item-hover-background-color: $light;

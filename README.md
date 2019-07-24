@@ -11,3 +11,4 @@
 # Make twine game
 # make canvas elements responsive
 # make changes to canvas slowly show
+# migrate site to AWS and nice domain name

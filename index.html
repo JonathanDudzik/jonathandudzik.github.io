@@ -29,17 +29,17 @@
                     <div class="navbar-item has-text-white">
                         <h2 class="is-capitalized has-text-centered is-size-4 has-text-weight-semibold is-italic">contact me:</h2>
                     </div>
-                    <a id="testBtn" class="navbar-item is-flex is-size-4 has-text-white" aria-label="Send Jonathan an email">
+                    <a id="testBtn" class="navbar-item is-flex is-size-4 has-text-white" href="mailto:jonathan.d.wesley@gmail.com" aria-label="Send Jonathan an email">
                         <span class="icon">
                             <i class="fas fa-envelope"></i>
                         </span>
                     </a>
-                    <a class="navbar-item is-flex is-size-4 has-text-white" aria-label="visit LinkedIn page">
+                    <a class="navbar-item is-flex is-size-4 has-text-white" href="https://www.linkedin.com/in/jonathan-dudzik/" target="_blank" aria-label="visit LinkedIn page">
                         <span class="icon">
                             <i class="fab fa-linkedin-in"></i>
                         </span>
                     </a>
-                    <a class="navbar-item is-flex is-size-4 has-text-white" aria-label="Visit Twitter page">
+                    <a class="navbar-item is-flex is-size-4 has-text-white" href="https://twitter.com/JDuWesley" target="_blank" aria-label="Visit Twitter page">
                         <span class="icon">
                             <i class="fab fa-twitter"></i>
                         </span>
@@ -55,8 +55,8 @@
                         <li><a href="#" class="" data-selector="pieChart">Pie Chart</a></li> 
                         <li><a href="#" class="" data-selector="screencast">Screencasts</a></li>
                         <li><a href="#" class="" data-selector="slides">Slides</a></li>
-                        <li><a href="#" class="" data-selector="quiz">Quiz</a></li>
-                        <li><a href="#" class="" data-selector="cert">Certificate</a></li>
+                        <li><a href="#" class="" data-selector="quiz">Quizzes</a></li>
+                        <li><a href="#" class="" data-selector="cert">Certificates</a></li>
                         <li><a href="#" class="" data-selector="images">Images</a></li>
                         <li><a href="#" class="" data-selector="tables">Tables</a></li>
                         <li><a href="#" class="" data-selector="lists">Lists</a></li>
@@ -70,25 +70,33 @@
                         <h2 class="subtitle has-text-white">Jonathan Wesley Dudzik</h2>
                     </div>
                     <div class="content is-large is-padding-2-top"> 
-                        <h3 class="has-text-dark">Welcome!</h3>
+                        <h3 class="has-text-dark">Welcome</h3>
                         <p>I am an Instructional Designer and Web Developer out of Raleigh, NC. I have been developing course content over the past four years on platforms like WordPress, Moodle, AWS, and Adobe Experience Cloud. I work for the North Carolina Department of Health and Human Services as their Training Development Specialist. I was also the Mobile app developer for the 2019 IEEE ICICLE Conference on Learning Engineering.</p>
+                        <p></p>
                         <h3 class="has-text-dark">Navigation Instructions</h3>
-                        <p>So please browse my site full of elearing examples and let me know if you have any questions! Use the menu to the left to navigate through the <em>contents and examples</em> of my projects.</p> 
+                        <p>This is a site that I have created to showcase some of the eLearning related applications, layouts, and multi-media 
+                            that I use in my designs. You can browse through this portfolio using the menu to the left (on a desktop) 
+                            to check out the various applications. Please come back often to see what's new.</p> 
                     </div>
                 </section>
                 <section class="section my-invisible-outline my-display-none" data-section='pieChart' tabindex="-1">
                     <div class="content is-large">
-                        <h1>Intereactive Pie Chart</h1>
-                        <p>All about my pie chart...</p> 
-                    </div>
-                    <div class="notification">
-                        <canvas id="myCanvas" width="600" height="300"></canvas>
+                        <h1>Interactive Pie Chart</h1>
+                        <p>This simple example of data visualization shows the importance of various eLearning tools in the industry. When you click the fast forward button below, the visualization changes to show what skills may be most important in 10 years (based on my own highly subjective opinion). The other button takes you back to our current time period.</p> 
+                        <p>Try it out now by clicking the buttons!</p>
+                        <button id="reverse" class="button is-large"><i class="icon fas fa-backward" style="margin-left: 30px; padding-right: 30px;"></i>The Year 2019</button> 
+                        <button id="forward" class="button is-large">The Year 2030<i class="icon fas fa-forward" style="margin-left: 30px; padding-right: 30px;"></i></button> 
                     </div> 
+                    <div class="box" style="background-color: #F8F8F8;">
+                        <canvas id="myCanvas" width="600" height="300"></canvas>
+                    </div>
                 </section>
                 <section class="section my-invisible-outline my-display-none" data-section='slides' tabindex="-1">
                     <div class="content is-large">
                         <h1>Slides</h1>
-                        <p>Slides are many things to many people, one thing that they are not is more than seven lines of text, irrevelant images. One big error I often see is that people estimate the size of a presentation (or eLearning course) by the amount of slides present. However, the real test is how many words there are.</p> 
+                        <p>Slides are versatile and effective, when used properly. However, your average run-of-the-mill presentations are anti-eLearning and not suitable for presenter-less or internet-based application. What I am attempting to show in this example, is that slides can be used to create short animated videos appropriate for briefly illustrating a point.</p>
+                        <p>Another error I often see is estimating the size of a presentation (or eLearning course) by the amount of slides a deck contains; the real indicator of length is how many words there are in the script.</p>
+                        <p>Click the <strong>play</strong> button below to watch this short PowerPoint video about xAPI statements.</p>
                     </div>
                     <div class="notification content has-text-centered">
                         <video class="my-max-height" src="./media/slides-compressed.mp4" controls>
@@ -99,7 +107,8 @@
                 <section class="section my-invisible-outline my-display-none" data-section='screencast' tabindex="-1">
                     <div class="content is-large">
                         <h1>Screencasts</h1>
-                        <p>In creating screencasts, it is best to always make Closed Captions available to the viewer and make sure that the script would be coherent even if the viewer was unable to see the video. Videos that say things like "click here" are annoying to someone listening to only the audio. It is better to say, for example, "click the "login" buttom at the top right of the screen."</p> 
+                        <p>In creating screencasts, it is best to always make Closed Captions available to the viewer and make sure that the script would be coherent even if the viewer was unable to see the illutrations: Videos that say things like "click here" are annoying to someone listening to only the audio. It is better to say, for example, "click the login button at the top right of the screen."</p> 
+                        <p>Watch this short screencast by clicking the <strong>play</strong> button below!</p>
                     </div>
                     <div class="notification content has-text-centered">
                         <video class="my-max-height" src="./media/screencast-compressed.mp4" controls>
@@ -109,8 +118,8 @@
                 </section>
                 <section class="section my-invisible-outline my-display-none" data-section="quiz" tabindex="-1">
                     <div class="content is-large">
-                        <h1>Multiple Choice Quiz</h1>
-                        <p>There may be times when you will need to provide a quiz to your participants to <em>show</em> that they completed a certian part of a course or lesson. Before providing a certificate I usually create a quiz that will test comprehension. Here is an example of a short multiple choice quiz:</p> 
+                        <h1>Multiple Choice Quizzes</h1>
+                        <p>There may be times when you will need to provide a quiz to your participants to show that they completed a certian part of a course or lesson. Before providing a certificate, I usually create a quiz that will test comprehension. Here is an example of a short multiple choice quiz:</p> 
                     </div>
                     <div class="columns is-vcentered">
                         <div class="column is-3 is-offset-1">
@@ -197,7 +206,7 @@
                 <section class="section my-invisible-outline my-display-none" data-section="images" tabindex="-1">
                     <div class="content is-large">
                         <h1>Images</h1>
-                        <p>The overuse of images is widespread in many eLearning courses; however, if your images are <em>relevant</em> or <em>explanatory</em>, then sizing and positioning them within the rest of the content becomes imperative! <br>Here are some examples of images being used alongside text:</p> 
+                        <p>The overuse of images is widespread in many eLearning courses. However, if your images are <em>relevant</em> or <em>explanatory</em>, then sizing and positioning them within the rest of the content becomes imperative! <br>Here are some examples of images being used alongside text:</p> 
                     </div>
                     <br>
                     <div class="columns is-vcentered">
@@ -227,7 +236,7 @@
                                 <figure>
                                     <img src="./media/moon-man.jpg">
                                 </figure>
-                                <p class="content">Neil Armstrong's Pressure Suit, A7-L, A19730040000, Apollo 11, that he wore to walk on the moon July 20, 1969 in its new display case in The Wright Brothers & the Invention of the Aerial Age Gallery of the National Air and Space Museum, July 12, 2019. (Smithsonian Air and Space Museum photo by Eric Long)</p>
+                                <p class="content has-text-white">Neil Armstrong's Pressure Suit, A7-L, A19730040000, Apollo 11, that he wore to walk on the moon July 20, 1969 in its new display case in The Wright Brothers & the Invention of the Aerial Age Gallery of the National Air and Space Museum, July 12, 2019. (Smithsonian Air and Space Museum photo by Eric Long)</p>
                             </div>
                         </div>
                     </div>
@@ -235,7 +244,9 @@
                 <section class="section my-invisible-outline my-display-none" data-section="tables" tabindex="-1">
                     <div class="content is-large">
                         <h1>Tables</h1>
-                        <p>How to best represent complex data is an important concept in design. I like to use tables when information correlations are extensive or complex:</p> 
+                        <p>Representation of data is an important concept in eLearning design. I like to use tables when information 
+                            correlations are extensive or complex. Though the data in this table is abstract and unintuitive to 
+                            understand (I plan on changing the data shortly), the concept of organization through columns and rows is clear:</p> 
                     </div>
                     <table class="table">
                         <thead>
