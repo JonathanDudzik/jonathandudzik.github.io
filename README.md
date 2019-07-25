@@ -12,3 +12,11 @@
 # make canvas elements responsive
 # make changes to canvas slowly show
 # migrate site to AWS and nice domain name
+
+Hard code the text and squares in HTML.
+
+LATER, bind the HTML to the data object:
+https://www.wintellect.com/data-binding-pure-javascript/
+https://medium.com/frontend-fun/js-vanilla-two-way-binding-5a29bc86c787
+https://namitamalik.github.io/2-way-data-binding-in-Plain-Vanilla-JavaScript/
+https://dev.to/proticm/vanilla-js-data-binding-with-classes-from-scratch-48b1
