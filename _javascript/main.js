@@ -4,37 +4,44 @@
 // get all elements as an array that will act as a selector
 const selectors = Array.from(document.querySelectorAll('[data-selector]'));
 
-// get all elements that are sections
-const sections = Array.from(document.querySelectorAll('[data-section]'));
-
 // give each selector an event listener, remove active class
 selectors.forEach(function(selector) {
-    selector.addEventListener('click', toggleSections);
+  selector.addEventListener('click', toggleSections);
 });
 
 function toggleSections(e) {
+  // get all elements that are sections
+  const sections = Array.from(document.querySelectorAll('[data-section]'));
 
-    // selected section
-    const section = document.querySelector(`[data-section="${e.target.dataset.selector}"]`);
+  // get selected section
+  const section = document.querySelector(`[data-section="${e.target.dataset.selector}"]`);
 
-    // hide all sections
-    sections.forEach(function(section) {
-        section.classList.add('my-display-none');
-    });
+  // hide all sections
+  sections.forEach(function(section) {
+      section.classList.add('my-display-none');
+  });
 
-    // unhide selected section
-    section.classList.remove('my-display-none');
+  // unhide selected section
+  section.classList.remove('my-display-none');
 
-    // remove active class from all selectors
-    selectors.forEach(function(selector) {
-        selector.classList.remove('is-active');
-    });
+  // remove active class from all selectors
+  selectors.forEach(function(selector) {
+      selector.classList.remove('is-active');
+  });
 
-    // make current selector active class
-    e.target.classList.add('is-active');
+  // make current selector active class
+  e.target.classList.add('is-active');
 
-    // move focus to the first paragraph of the unhidden section
-    section.focus();
+  // move focus to the first paragraph of the unhidden section
+  section.focus();
+
+  // get all video elements and pause them
+  const allVideos = document.querySelectorAll("video");
+  allVideos.forEach(video => {
+      if(video.paused === false) {
+        video.pause();
+      } 
+  });
 }
 
 /***************************************
