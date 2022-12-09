@@ -7,6 +7,7 @@
 
 	<title>Go SDK</title>
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="stylesheet" href="../../dist/reset.css">
 	<link rel="stylesheet" href="../../dist/reveal.css">
 	<link rel="stylesheet" href="../../dist/theme/black.css">
@@ -468,7 +469,7 @@
 
 							return mappedJSON, nil
 						}
-				</code></pre>
+					</code></pre>
 			</section>
 			<section id="resourceGroups">
 				<p>After obtaining an authentication token, the next step will be to create a resource group for the deployment.
@@ -491,9 +492,8 @@
 						Download audio
 					</a>
 				</audio>
-				<h2>Call createResourceGroup</h2>
-				<pre>
-					<code class="r-frame" data-trim data-line-numbers="25|26|27-28|30|31-33">
+				<h2>Main Package</h2>
+				<pre><code class="r-frame" data-trim data-line-numbers="25|26|27-28|30|31-33">
 						package main
 
 						import (
@@ -650,19 +650,17 @@
 
 							return mappedJSON, nil
 						}
-					</code>
-				</pre>
+					</code></pre>
 			</section>
 			<section data-package="mainPackage">
 				<audio data-autoplay controls>
-					<source src="../../assets/slide-audio/go-sdk/mainPackage_39-45.mp3">
+					<source src="../../assets/slide-audio/go-sdk/mainPackage_42-48.mp3">
 					<a href="">
 						Download audio
 					</a>
 				</audio>
-				<h2>Define createResourceGroup</h2>
-				<pre>
-					<code class="r-frame" data-trim data-line-numbers="42-48|49-52|54|55-62|64-75|77">
+				<h2>Main Package</h2>
+				<pre><code class="r-frame" data-trim data-line-numbers="42-48|49-52|54|55-62|64-75|77">
 						package main
 
 						import (
@@ -819,19 +817,17 @@
 
 							return mappedJSON, nil
 						}
-					</code>
-				</pre>
+					</code></pre>
 			</section>
 			<section data-package="mainPackage">
 				<audio data-autoplay controls>
-					<source src="../../assets/slide-audio/go-sdk/mainPackage_84-87.mp3">
+					<source src="../../assets/slide-audio/go-sdk/mainPackage_87-90.mp3">
 					<a href="">
 						Download audio
 					</a>
 				</audio>
-				<h2>Define the deployTemplate Function</h2>
-				<pre>
-					<code class="r-frame" data-trim data-line-numbers="87-90|92-100|102-110|139|146|150|155|112-122|129-133">
+				<h2>Main Package</h2>
+				<pre><code class="r-frame" data-trim data-line-numbers="87-90|92-100|102-110|139|146|150|155|112-122|129-133">
 						package main
 
 						import (
@@ -988,8 +984,7 @@
 
 							return mappedJSON, nil
 						}
-					</code>
-				</pre>
+					</code></pre>
 			</section>
 			<section id="wrap-up">
 				<section>
@@ -1031,11 +1026,11 @@
 		});
 	</script>
 	<script>
+		let codeLineHighlights;
 		let currentSectionName;
 		let currentAudio;
-		const codeLineHighlights = []
 		Reveal.on('ready', event => {
-			document.querySelectorAll(`[data-line-numbers]`).forEach(el => {codeLineHighlights.push(el.attributes["data-line-numbers"].value)})
+			codeLineHighlights = Array.from(document.querySelectorAll(`[data-line-numbers]`)).map(el => el.attributes["data-line-numbers"].value)
 		});
 		Reveal.on('slidechanged', event => {
 			currentSectionName = event.currentSlide.dataset.package;
@@ -1048,7 +1043,7 @@
 		});
 		Reveal.on('fragmenthidden', event => {
 			const currentLine = event.fragment.attributes["data-line-numbers"].value
-			const nextIndex = codeLineHighlights.indexOf(event.fragment.attributes["data-line-numbers"].value)-1;
+			const nextIndex = codeLineHighlights.indexOf(event.fragment.attributes["data-line-numbers"].value) - 1;
 			const nextValue = codeLineHighlights[nextIndex];
 			fragmentId = currentSectionName + "_" + nextValue
 			fragmentChangeHandler(fragmentId)
