@@ -1,38 +1,19 @@
 const pkg = require('./package.json')
-const path = require('path')
 const glob = require('glob')
 const yargs = require('yargs')
-const colors = require('colors')
-const through = require('through2');
 const qunit = require('node-qunit-puppeteer')
-
 const {rollup} = require('rollup')
 const {terser} = require('rollup-plugin-terser')
 const babel = require('@rollup/plugin-babel').default
 const commonjs = require('@rollup/plugin-commonjs')
 const resolve = require('@rollup/plugin-node-resolve').default
-const sass = require('sass')
-
 const gulp = require('gulp')
-const tap = require('gulp-tap')
 const zip = require('gulp-zip')
-const header = require('gulp-header')
 const eslint = require('gulp-eslint')
-const minify = require('gulp-clean-css')
 const connect = require('gulp-connect')
-const autoprefixer = require('gulp-autoprefixer')
-
 const root = yargs.argv.root || '.'
 const port = yargs.argv.port || 8000
 const host = yargs.argv.host || 'localhost'
-
-const banner = `/*!
-* reveal.js ${pkg.version}
-* ${pkg.homepage}
-* MIT licensed
-*
-* Copyright (C) 2011-2022 Hakim El Hattab, https://hakim.se
-*/\n`
 
 // Prevents warnings from opening too many test pages
 process.setMaxListeners(20);
@@ -88,7 +69,6 @@ gulp.task('js-es5', () => {
             name: 'Reveal',
             file: './dist/reveal.js',
             format: 'umd',
-            banner: banner,
             sourcemap: true
         });
     });
@@ -110,7 +90,6 @@ gulp.task('js-es6', () => {
         return bundle.write({
             file: './dist/reveal.esm.js',
             format: 'es',
-            banner: banner,
             sourcemap: true
         });
     });
@@ -156,45 +135,6 @@ gulp.task('plugins', () => {
             });
     } ));
 })
-
-// a custom pipeable step to transform Sass to CSS
-function compileSass() {
-  return through.obj( ( vinylFile, encoding, callback ) => {
-    const transformedFile = vinylFile.clone();
-
-    sass.render({
-        data: transformedFile.contents.toString(),
-        includePaths: ['css/', 'css/theme/template']
-    }, ( err, result ) => {
-        if( err ) {
-            console.log( vinylFile.path );
-            console.log( err.formatted );
-        }
-        else {
-            transformedFile.extname = '.css';
-            transformedFile.contents = result.css;
-            callback( null, transformedFile );
-        }
-    });
-  });
-}
-
-gulp.task('css-themes', () => gulp.src(['./css/theme/source/*.{sass,scss}'])
-        .pipe(compileSass())
-        .pipe(gulp.dest('./dist/theme')))
-
-gulp.task('css-custom', () => gulp.src(['./css/custom/*.{sass,scss,css}'])
-        .pipe(compileSass())
-        .pipe(gulp.dest('./dist/custom')))
-
-gulp.task('css-core', () => gulp.src(['css/reveal.scss'])
-    .pipe(compileSass())
-    .pipe(autoprefixer())
-    .pipe(minify({compatibility: 'ie9'}))
-    .pipe(header(banner))
-    .pipe(gulp.dest('./dist')))
-
-gulp.task('css', gulp.parallel('css-themes', 'css-custom', 'css-core'))
 
 gulp.task('qunit', () => {
 
@@ -269,9 +209,9 @@ gulp.task('eslint', () => gulp.src(['./js/**', 'gulpfile.js'])
 
 gulp.task('test', gulp.series( 'eslint', 'qunit' ))
 
-gulp.task('default', gulp.series(gulp.parallel('js', 'css', 'plugins'), 'test'))
+gulp.task('default', gulp.series(gulp.parallel('js', 'plugins'), 'test'))
 
-gulp.task('build', gulp.parallel('js', 'css', 'plugins'))
+gulp.task('build', gulp.parallel('js', 'plugins'))
 
 gulp.task('package', gulp.series(() =>
 
@@ -308,16 +248,5 @@ gulp.task('serve', () => {
 
     gulp.watch(['plugin/**/plugin.js', 'plugin/**/*.html'], gulp.series('plugins', 'reload'))
 
-    gulp.watch([
-        'css/theme/source/*.{sass,scss}',
-        'css/theme/template/*.{sass,scss}',
-    ], gulp.series('css-themes', 'reload'))
-
-    gulp.watch([
-        'css/*.scss',
-        'css/print/*.{sass,scss,css}'
-    ], gulp.series('css-core', 'reload'))
-
     gulp.watch(['test/*.html'], gulp.series('test'))
-
 })
