@@ -1,153 +1,277 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-  <!-- <link rel="stylesheet" href="../dist/custom/mvp.css"> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>test page</title>
   <link rel="stylesheet" href="../../css/reset.css">
-  <link rel="stylesheet" href="../../css/pages/mvp.css">
-  <link rel="stylesheet" href="../../css/pages/home.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+  <!-- <script src=" //cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script> -->
+  <!-- <script src="https: //cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser-arcade-physics.min.js"></script>  -->
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.51.0/dist/phaser.js"></script>
+
+  <style>
+    canvas {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    #bg {
+      background-color: rgba(255, 255, 128, .5);
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: -2;
+    }
+
+    #content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+
 </head>
 
-<body>
-  <div class="layoutGrid">
-    <!-- toolbar section -->
-    <div class="layoutToolbar">
-      <div class="ghostbar">
-        <div></div>
-        <div class="ghostbarLinks">
-          <a href="/" style="padding-right: 20px; font-size: large; color: #fff">Home</a>
-          <a href="/presentation/go-sdk/" style="padding-right: 20px; font-size: large; color: #fff">Presentation</a>
-          <a href="/resume" style="padding-right: 20px; font-size: large; color: #fff">Resume</a>
-        </div>
-      </div>
-    </div>
-    <!-- main section -->
-    <div class="layoutMain">
-      <div class="heroGrid">
-        <div class="heroBackground"></div>
-        <div class="heroForeground">
-          <div class="heroText">
-            <h1>
-              Explore my software development presentations!
-            </h1>
-          </div>
-          <div>
-            <img src="../assets/binary-sm.png" class="heroImage" alt="binary code" />
-          </div>
-        </div>
-      </div>
-      <div class="avatarContainer">
-        <div class="avatarDiv1">
-          <img src="../assets/avatar.png" class="avatarImage" alt="cartoon bold guy with glasses" />
-        </div>
-        <div class="avatarDiv2">
-          <h2>
-            Hello! My name is Jonathan Wesley Dudzik.
-          </h2>
-          <p>
-            Professionally, I am a full-stack software developer, UI/UX aficionado, and agile practitioner.
-            This site is where I choose to publish the educational presentation that I create.
-          </p>
-        </div>
-      </div>
+<body style="overflow-x: hidden">
+  <!-- <div id="bg"></div>
+  <div id="content">
+    <div style="background-color: yellowgreen; width: 5vw; height: 5vw;"></div>
+    <p style="font-size: xx-large;">text not controlled by GSAP</p>
+    <div class="box" style="background-color: red; width: 10vw; height: 10vw;"></div>
+    <p class="text" style="font-size: xx-large;">SOME COOL TEXT</p>
+    <div class="box" style="background-color: blue; width: 20vw; height: 20vw;"></div>
+    <p class="text" style="font-size: xx-large;">SOME COOL TEXT</p>
+    <div class="box" style="background-color: greenyellow; width: 10vw; height: 10vw;"></div>
+    <p class="text" style="font-size: xx-large;">SOME COOL TEXT</p>
+    <div class="box" style="background-color: aqua; width: 15vw; height: 15vw;"></div>
+    <p class="text" style="font-size: xx-large;">SOME COOL TEXT</p>
+  </div> -->
 
-      <hr />
+  <script type="text/javascript">
+    var config = {
+      type: Phaser.CANVAS,
+      // SEE: https://newdocs.phaser.io/docs/3.55.2/Phaser.Core.Config#canvas
+      // TRY: type: Phaser.WEBGL,
+      parent: "body",
+      dom: {
+        createContainer: true
+      },
+      transparent: true,
+      pixelArt: true,
+      scale: {
+        // https://newdocs.phaser.io/docs/3.54.0/Phaser.Scale.ScaleModes
+        mode: Phaser.Scale.RESIZE
+      },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          debug: false
+        }
+      },
+      scene: {
+        preload: preload,
+        create: create,
+        update: update
+      }
+    };
 
-      <h2 class="madeWithDescription">
-        I have used the following programs, standards,
-        and libraries to improve the development
-        experience and speed of building this site:
-      </h2>
+    var scene = new Phaser.Game(config);
+    var originScrollPos;
+    var currentScrollPos;
+    var run;
+    var atComputer;
+    var element;
 
-      <div class="madeWithGrid" style="background-color:whitesmoke;">
-        <div>
-          <a href="https://www.gatsbyjs.com/">
-            <img src="../assets/Gatsby.svg" style="height:10vh;" alt="Gatsby logo" />
-          </a>
-        </div>
+    function preload() {
+      // https://newdocs.phaser.io/docs/3.52.0/Phaser.GameObjects.Sprite
+      this.load.spritesheet('coffee', 'assets/phaser/coffee.png', { frameWidth: 28, frameHeight: 58 });
+      this.load.spritesheet('computer', 'assets/phaser/computer.png', { frameWidth: 46, frameHeight: 38 });
+      this.load.spritesheet('props', 'assets/phaser/props.png', { frameWidth: 83, frameHeight: 128 });
+      this.load.spritesheet('read', 'assets/phaser/reading.png', { frameWidth: 43, frameHeight: 85 });
+      this.load.spritesheet('run', 'assets/phaser/run.png', { frameWidth: 63, frameHeight: 71 });
+      this.load.image('table', 'assets/phaser/table.png');
+      this.load.html('textBox', 'assets/phaser/textBox.html')
+    }
 
-        <div style="padding:0px 20px;">
-          <h3>Gatsby:</h3>
-          <p>
-            I chose to use Gatsby because I think, as an open source project,
-            they have a great monetization model by offering their own hosting service,
-            and bringing content into Gatsby is just plain easy with GraphSQL.
-          </p>
-        </div>
+    function create() {
+      const { width, height } = this.sys.game.canvas;
+      const ground = height / 2
 
-        <div>
-          <a href="https://reactjs.org/">
-            <img src="../assets/React.png" style="height:10vh;" alt="React logo" />
-          </a>
-        </div>
+      // https://newdocs.phaser.io/docs/3.52.0/Phaser.Textures.Texture      
+      this.add.sprite(width - 264, height / 2, 'props', 0);
+      this.add.image(width - 364, height / 2, 'props', 1);
+      read = this.add.sprite(width - 564, height / 2, 'read');
+      this.add.image(664, 350, 'table');
+      run = this.physics.add.sprite(664, 390, 'run');
+      computer = this.add.sprite(675, 320, 'computer');
+      coffee = this.add.sprite(643, 325, 'coffee');
+      this.add.image(664, 400, 'props', 2);
 
-        <div style="padding:0px 20px;">
-          <h3>React: </h3>
-          <p>
-            Most of my experience is in Vue.
-            However, for this project, I wanted to improve my React knowledge.
-            I have found React's comparatively flat API and the use a JSX a joy to work with!
-          </p>
-        </div>
+      element = this.add.dom(width/2, height/2).createFromCache('textBox');
+      console.log(element)
+      textBox = document.getElementById("textBox")
 
-        <div>
-          <a href="https://www.w3.org/Style/CSS/specs.en.html">
-            <img src="../assets/CSS.png" style="height:10vh;" alt="CSS logo" />
-          </a>
-        </div>
+      this.anims.create({
+        key: 'coffee',
+        frames: this.anims.generateFrameNumbers('coffee', { frames: [0, 1, 2, 3, 4, 5] }),
+        frameRate: 3,
+        repeat: -1
+      });
 
-        <div style="padding:0px 20px;">
-          <h3>CSS Grids and Flexbox:</h3>
-          <p>
-            Sometime ago I traded in my CSS framework for the CSS Grids
-            and Flexbox standard and I haven't looked back since.
-          </p>
-        </div>
+      this.anims.create({
+        key: 'computer-typing',
+        frames: this.anims.generateFrameNumbers('computer', { frames: [0, 1, 2, 3, 4, 5] }),
+        frameRate: 2,
+        repeat: -1
+      });
 
-        <div>
-          <a href="https://code.visualstudio.com/">
-            <img src="../assets/VSCode.png" style="height:10vh;" alt="VS Code logo" />
-          </a>
-        </div>
+      this.anims.create({
+        key: 'computer-sleep',
+        frames: this.anims.generateFrameNumbers('computer', { frames: [0] }),
+        frameRate: 2,
+        repeat: -1
+      });
 
-        <div style="padding:0px 20px;">
-          <h3>VS Code:</h3>
-          <p>
-            I have worked with a few different IDEs.
-            VS Code just stuck. What more can I say?
-          </p>
-        </div>
+      this.anims.create({
+        key: 'read',
+        // can you use a spread operator?
+        frames: this.anims.generateFrameNumbers('read', { frames: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17] }),
+        frameRate: 6,
+        repeat: -1
+      });
 
-        <div>
-          <a href="https://eslint.org/">
-            <img src="../assets/ESLint.png" style="height:10vh;" alt="ESLint logo" />
-          </a>
-        </div>
+      this.anims.create({
+        key: 'run-left',
+        frames: this.anims.generateFrameNumbers('run', { frames: [2, 3, 4, 5, 6, 7, 8] }),
+        frameRate: 6,
+        repeat: -1
+      });
 
-        <div style="padding:0px 20px;">
-          <h3>ESLint:</h3>
-          <p>
-            I am a bit obsessive about the way my code is organized.
-            And while any JavaScript linter would probably do, ESLint is the one I use.
-          </p>
-        </div>
+      this.anims.create({
+        key: 'run-right',
+        frames: this.anims.generateFrameNumbers('run', { frames: [10, 11, 12, 13, 14, 15] }),
+        frameRate: 6,
+        repeat: -1
+      });
 
-        <div>
-          <a href="https://www.google.com/chrome/">
-            <img src="../assets/Chrome.png" style="height:10vh;" alt="Chrome logo" />
-          </a>
-        </div>
+      this.anims.create({
+        key: 'run-ready',
+        frames: this.anims.generateFrameNumbers('run', { frames: [0] }),
+        frameRate: 1,
+        repeat: 0
+      });
 
-        <div style="padding:0px 20px;">
-          <h3>Chrome:</h3>
-          <p>
-            I browse the internet on Firefox; I develop on Chrome.
-            Chrome has two developer focused features that I appreciate:
-            Hard Reloads and Local Overrides.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+      this.anims.create({
+        // does this initial state really need to be an anim?
+        key: 'run-init',
+        frames: this.anims.generateFrameNumbers('run', { frames: [1] }),
+        frameRate: 1,
+        repeat: 0
+      });
+
+      // set initial states
+      atComputer = true;
+      coffee.anims.play('coffee', coffee);
+      computer.anims.play('computer-typing', computer);
+      run.anims.play('run-init', run)
+
+      this.input.keyboard.on('keydown', function (event) {
+        atComputer = false;
+      });
+
+      run.on('animationstart', () => {
+        textBox.innerHTML = "A voice inside your head tells you to walk to the bookshelf.A voice inside your head tells you to walk to the bookshelf.A voice inside your head tells you to walk to the bookshelf."
+
+        switch (run.anims.currentAnim.key) {
+          case "run-ready":
+            break;
+          case "run-right" || "run-left":
+            console.log("running")
+            break;
+          case "run-left":
+            console.log("running")
+            break;
+          case "read":
+            console.log("reading a book!")
+            break;
+          default:
+            console.log("default")
+            break;
+        }
+      })
+
+      // these two states could be determined by the animation of dude...
+      // walk to the bookshelf
+      // choose a topic to learn about
+
+      cursors = this.input.keyboard.createCursorKeys();
+    }
+
+    // cody = this.physics.add.sprite(width-width+64, height / 2, 'coffee');
+    // cody.setBounce(0.2);
+    // cody.setScale(1)
+
+    // const line1 = this.add.line(0, cody.y + 48, 0, 0, width/2, 0, 0x6666ff);
+    // const line2 = this.add.line(line1.y, cody.y + 48, 0, 180, 20, 0, 0x6666ff);
+    // platform = this.physics.add.staticGroup();
+    // platform.add(line1);
+    // platform.add(line2);
+    // this.physics.add.collider(cody, platform);
+
+    // var ArrowRightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    // var ArrowLeftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    // //  Phase 1: Key event.
+    // //  Emits only when the SPACE BAR is pressed down, and dispatches from the local Key object.
+    // //  You can call stopPropagation at this level, which will stop it reaching both listeners below.
+    // spaceKey.on('down', function (key, event) {
+    //   // event.stopPropagation();
+    //   // do something...
+    // });
+
+    // //  Phase 2: Global keydown + keycode handler.
+    // //  Emits only on the SPACE BAR keycode event, but dispatches globally.
+    // //  You can call stopPropagation at this level, which will stop it reaching the listener below.
+    // this.input.keyboard.on('keydown-SPACE', function (event) {
+    //   // event.stopPropagation();
+    //   // do something...
+    // });
+
+    // //  Phase 3: Global keydown handler.
+    // //  Fires on ANY key press, so we need to check the keyCode internally.
+    // this.input.keyboard.on('keydown', function (event) {
+    //   if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
+    //     // do something...
+    //   }
+    // });
+
+    function update() {
+
+      if (cursors.left.isDown) {
+        run.setVelocityX(-300);
+        run.anims.play('run-left', true);
+      }
+      else if (cursors.right.isDown) {
+        run.setVelocityX(300);
+        run.anims.play('run-right', true);
+      } else {
+        run.setVelocity(0);
+        atComputer ? run.anims.play('run-init', true) : run.anims.play('run-ready', true)
+      }
+    }
+  </script>
+  <!-- <script>
+    gsap.to(".box", { scale: 0.7, rotate: 7, x: 25, duration: 2 });
+    gsap.to(".text", { color: "purple", scale: 1.2, y: -20, x: "40%", duration: 2 });
+    gsap.to(".bg", { "background-color": "orange", duration: 2 });
+  </script> -->
 </body>
 
 </html>
